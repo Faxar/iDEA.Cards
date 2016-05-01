@@ -9,8 +9,8 @@ public class Main {
     public static void main(String[] args) {
 
         int number;
-
-
+        int turn = 1;
+        Scanner newScanner = new Scanner(System.in);
 
         Card card1 = new Card(1, "Scout", 1, 1, 1);
         Card card2 = new Card(2, "Space Marine", 1, 1, 1);
@@ -21,6 +21,7 @@ public class Main {
         Card card7 = new Card(7, "Primarch", 10, 10, 10);
         Deck newDeck = new Deck("Player1");
         Field newField = new Field();
+        AI ai = new AI();
         newDeck.populateDeck(card1);
         newDeck.populateDeck(card2);
         newDeck.populateDeck(card3);
@@ -32,24 +33,25 @@ public class Main {
         Hand newHand = new Hand("myHand");
         newHand.populateHand(newDeck);
 
-        Scanner newScanner = new Scanner(System.in);
-
         Card tempCard;
 
         startGame();
-        printMenu();
 
         System.out.println("You have following cards in your hand : ");
         newHand.checkCards();
         boolean endGame = false;
         while (!endGame) {
+
+            System.out.println("Turn " + turn);
+            printMenu();
+
+
             try {
                 number = newScanner.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Please enter correct number");
                 continue;
             }
-
 
 
             switch (number) {
@@ -65,23 +67,54 @@ public class Main {
                         newField.putCardOnF(tempCard, 1);
                         System.out.println("Now on the field there is:");
                         newField.returnFieldCards();
-                        printMenu();
                     }
                     break;
 
                 case 2:
+                    System.out.println("Select card to attack with");
+                    newField.returnFieldCards();
+                    int cardNumber = newScanner.nextInt();
+                    if(newField.checkIfCardExistOnField(cardNumber)){
+                        if(!newField.checkIfCardFatugued(cardNumber)){
+                            int damage = newField.getCardStrengh(cardNumber);
+                            int health = newField.getCardHealth(cardNumber);
+                            if(!newField.checkEnemyCards()){
+                                System.out.println("Please select target");
+                                System.out.println("1 - Attack AI\n" +
+                                        "2 - Attack card on the filed" +
+                                        "3 - Cancel");
+                                number = newScanner.nextInt();
+                                newField.giveEnemyCards();
+                                switch (number){
+                                    case 1:
+                                        ai.removeHealth(damage);
+                                        System.out.println("AI received " + damage + " points of damage");
+                                        System.out.println("New AI health = " + ai.getAiHealth());
+                                        newField.putToFatugue(cardNumber);
+                                        break;
+                                    case 2:
+                                        break;
+                                    case 3:
+                                        break;
+                                }
+                            }
+                        } else {
+                            System.out.println("You cannot play " + newField.getCardName(cardNumber) + ". It's fatigued");
+                        }
+                    } else {
+                        System.out.println("Please select correct card");
+                    } break;
+
+
+                case 3:
                     if (newHand.checkAmountOfCards() >= 3 && newDeck.amountCardsInDeck() > 0) {
                         Card burned = newDeck.fetch();
                         System.out.println("You have full hand.\n" + burned + '\n' + " have burned down");
                         System.out.println("You have " + newDeck.amountCardsInDeck() + " cards, left in your deck");
-                        printMenu();
-                        break;
                     } else if (newHand.checkAmountOfCards() < 3 && newDeck.amountCardsInDeck() > 0) {
                         Card pullFromDeck = newDeck.fetch();
                         newHand.endTurnCardDrow(pullFromDeck);
                         System.out.println("You have pulled " + pullFromDeck + " card");
-                        printMenu();
-                        break;
                     } else {
                         System.out.println("You have " + newDeck.amountCardsInDeck() + " cards, left in your deck");
                         System.out.println("Your current health is " + newHand.checkPlayerHealth());
@@ -92,13 +125,13 @@ public class Main {
                             System.out.println("You Dead! MuaHaHaHa!");
                             endGame = true;
                             break;
-                        } else {
-                            printMenu();
-                            break;
                         }
                     }
+                    turn++;
+                    newField.clearFatigue(1);
+                    break;
 
-                case 3:
+                case 4:
                     System.out.println("Weakling!");
                     endGame = true;
                     break;
@@ -116,10 +149,23 @@ public class Main {
 
     private static void printMenu() {
         System.out.println("Please press action\n" +
-                "Press 1 - Play Card\n" +
-                "Press 2 - End Turn\n" +
+                "Press 1 - Play Card from the hand\n" +
+                "Press 2 - Play Card on the field\n" +
+                "Press 3 - End Turn\n" +
                 "Press 4 - Surrender\n");
     }
+
+//    private static int scanner() throws Throwable {
+//        int number;
+//        try {
+//            Scanner newScanner = new Scanner(System.in);
+//             number = newScanner.nextInt();
+//            return number;
+//        } catch (InputMismatchException e) {
+//            System.out.println("Please enter correct number");
+//            return null;
+//        }
+//    }
 
 }
 

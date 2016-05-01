@@ -36,6 +36,10 @@ public class Card {
         return mana;
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Card{" +
