@@ -24,7 +24,7 @@ public class Field {
     public boolean putCardOnF(Card card, int sideNumber){
         if(sideNumber == 1){
             return put(card, fieldCards1, fatigueList1);
-            } else {
+        } else {
             return put(card, fieldCards2, fatigueList2);
         }
     }
@@ -59,7 +59,6 @@ public class Field {
     }
 
     public boolean checkIfCardExistOnField(int number){
-        System.out.println("checking");
         return  number - 1 <= fieldCards1.size();
     }
 

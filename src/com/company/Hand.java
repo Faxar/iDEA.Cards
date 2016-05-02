@@ -10,13 +10,17 @@ public class Hand {
     public String hand;
     private int numberOfCards;
     private ArrayList<Card> myHand;
-    private int playerHealth;
+    private int health;
+    private int mana;
+    private int tempMana;
 
     public Hand(String hand) {
         this.hand = hand;
         this.numberOfCards = 3;
         this.myHand = new ArrayList<>();
-        this.playerHealth = 10;
+        this.health = 10;
+        this.mana = 3;
+        this.tempMana = 3;
     }
 
     public void populateHand(Deck deck){
@@ -27,12 +31,20 @@ public class Hand {
 
     public void checkCards(){
         for(int i=0; i<myHand.size(); i++)
-        System.out.println(myHand.get(i));
+            System.out.println(myHand.get(i));
     }
 
 
     public Card getCard(int number){
         return myHand.remove(number - 1);
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public int getTempMana() {
+        return tempMana;
     }
 
     public boolean checkIfCardExist(int number){
@@ -48,15 +60,32 @@ public class Hand {
     }
 
     public int checkPlayerHealth(){
-        return playerHealth;
+        return health;
     }
 
     public void addPlayerHealth(int number){
-        playerHealth += number;
+        health += number;
     }
 
     public void removePlayerHealth(int number){
-        playerHealth -= number;
+        health -= number;
+    }
+
+    public void modifyMana(){
+        if(mana < 10) {
+            mana++;
+            tempMana = mana;
+        }
+    }
+
+    public void modifyTempMana(int number){
+        tempMana -=number;
+    }
+
+    public int getManaCard(int number){
+        int mana;
+        Card card = myHand.get(number - 1);
+        return mana = card.getMana();
     }
 
 }

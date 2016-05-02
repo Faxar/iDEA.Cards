@@ -19,6 +19,31 @@ public class Main {
         Card card5 = new Card(5, "Terminator", 1, 1, 1);
         Card card6 = new Card(6, "Dreadnought", 8, 8, 8);
         Card card7 = new Card(7, "Primarch", 10, 10, 10);
+
+
+        Card aiCard1 = new Card(1, "Scout", 1, 1, 1);
+        Card aiCard2 = new Card(2, "Space Marine", 2, 2, 2);
+        Card aiCard3 = new Card(3, "Inquisitor", 3, 3, 3);
+        Card aiCard4 = new Card(4, "Chaplain", 3, 3, 3);
+        Card aiCard5 = new Card(5, "Terminator", 3, 3, 3);
+        Card aiCard6 = new Card(6, "Dreadnought", 8, 8, 8);
+
+
+        Hand aiHand = new Hand("aiHand");
+        Deck aiDeck = new Deck("aiDeck");
+
+        aiDeck.populateDeck(aiCard1);
+        aiDeck.populateDeck(aiCard2);
+        aiDeck.populateDeck(aiCard3);
+        aiDeck.populateDeck(aiCard4);
+        aiDeck.populateDeck(aiCard5);
+        aiDeck.populateDeck(aiCard6);
+
+        aiDeck.shuffle();
+        aiHand.populateHand(aiDeck);
+        System.out.println("AI have following cards in his hand");
+        aiHand.checkCards();
+
         Deck newDeck = new Deck("Player1");
         Field newField = new Field();
         AI ai = new AI();
@@ -43,6 +68,7 @@ public class Main {
         while (!endGame) {
 
             System.out.println("Turn " + turn);
+            System.out.println("You have currently: " + newHand.getTempMana() + " mana in mana pool.");
             printMenu();
 
 
@@ -63,10 +89,16 @@ public class Main {
                     if (number < 0) {
                         System.out.println("Please enter positive number");
                     } else if (newHand.checkIfCardExist(number)) {
-                        tempCard = newHand.getCard(number);
-                        newField.putCardOnF(tempCard, 1);
-                        System.out.println("Now on the field there is:");
-                        newField.returnFieldCards();
+                        if(newHand.getManaCard(number) <= newHand.getMana()) {
+                            int cardManaCost = newHand.getManaCard(number);
+                            tempCard = newHand.getCard(number);
+                            newField.putCardOnF(tempCard, 1);
+                            System.out.println("Now on the field there is:");
+                            newHand.modifyTempMana(cardManaCost);
+                            newField.returnFieldCards();
+                        } else {
+                            System.out.println("You don't have enough mana. Your current mana pool is " + newHand.getMana() );
+                        }
                     }
                     break;
 
@@ -98,6 +130,7 @@ public class Main {
                                         break;
                                 }
                             }
+
                         } else {
                             System.out.println("You cannot play " + newField.getCardName(cardNumber) + ". It's fatigued");
                         }
@@ -129,6 +162,7 @@ public class Main {
                     }
                     turn++;
                     newField.clearFatigue(1);
+                    newHand.modifyMana();
                     break;
 
                 case 4:
@@ -155,6 +189,10 @@ public class Main {
                 "Press 4 - Surrender\n");
     }
 
+    private void aiLogic(){
+        if()
+    }
+
 //    private static int scanner() throws Throwable {
 //        int number;
 //        try {
@@ -168,5 +206,3 @@ public class Main {
 //    }
 
 }
-
-
