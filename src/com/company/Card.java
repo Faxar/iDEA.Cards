@@ -19,6 +19,9 @@ public class Card {
         this.mana = mana;
     }
 
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -34,10 +37,6 @@ public class Card {
 
     public int getMana() {
         return mana;
-    }
-
-    public int getId() {
-        return id;
     }
 
     @Override

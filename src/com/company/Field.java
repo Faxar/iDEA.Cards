@@ -65,9 +65,13 @@ public class Field {
     public boolean checkEnemyCards(){
         if(fieldCards2.size() > 0){
             return true;
-        } else {
-            return false;
-        }
+        } return false;
+    }
+
+    public boolean checkIfPlayerCardsField(){
+        if(fieldCards1.size() > 0){
+            return true;
+        } return false;
     }
 
     public int getCardStrengh(int number){
@@ -101,6 +105,12 @@ public class Field {
             }
 
         }return false;
+    }
+
+    public boolean isFieldEmpty(){
+        if(fieldCards1.size() <= 0){
+            return true;
+        } return false;
     }
 
 

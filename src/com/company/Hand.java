@@ -1,6 +1,9 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by vassili.holenev on 7.04.2016.
@@ -47,6 +50,10 @@ public class Hand {
         return tempMana;
     }
 
+    public Card lastItem(){
+        return myHand.get(myHand.size()-1);
+    }
+
     public boolean checkIfCardExist(int number){
         return number - 1 < myHand.size();
     }
@@ -61,10 +68,6 @@ public class Hand {
 
     public int checkPlayerHealth(){
         return health;
-    }
-
-    public void addPlayerHealth(int number){
-        health += number;
     }
 
     public void removePlayerHealth(int number){
@@ -86,6 +89,16 @@ public class Hand {
         int mana;
         Card card = myHand.get(number - 1);
         return mana = card.getMana();
+    }
+
+    public boolean isHandEmpty(){
+        if(myHand.size() <= 0){
+            return true;
+        } return false;
+    }
+
+    public ArrayList<Card> getArray(){
+        return myHand;
     }
 
 }
