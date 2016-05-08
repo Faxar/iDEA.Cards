@@ -1,5 +1,7 @@
 package com.company;
 
+import jdk.nashorn.internal.runtime.regexp.joni.CodeRangeBuffer;
+
 import java.util.ArrayList;
 
 /**
@@ -21,17 +23,17 @@ public class Field {
         this.fatigueList2 = new ArrayList<>();
     }
 
-    public boolean putCardOnF(Card card, int sideNumber){
-        if(sideNumber == 1){
+    public boolean putCardOnF(Card card, int sideNumber) {
+        if (sideNumber == 1) {
             return put(card, fieldCards1, fatigueList1);
         } else {
             return put(card, fieldCards2, fatigueList2);
         }
     }
 
-    private boolean put(Card card, ArrayList<Card> fieldCards, ArrayList<Card> fatigueList){
+    private boolean put(Card card, ArrayList<Card> fieldCards, ArrayList<Card> fatigueList) {
         int fieldSize = fieldCards.size();
-        if(fieldSize >= maxLength){
+        if (fieldSize >= maxLength) {
             return false;
         }
         fieldCards.add(card);
@@ -39,79 +41,204 @@ public class Field {
         return true;
     }
 
-    public void putToFatugue(int number){
-        Card tempFatigue = fieldCards1.get(number);
-        fatigueList1.add(tempFatigue);
+    public void putToFatugue(int number, int side) {
+        if (side == 1){
+            Card tempFatigue = fieldCards1.get(number);
+            fatigueList1.add(tempFatigue);
+        }
+        Card tempFatigue = fieldCards2.get(number);
+        fatigueList2.add(tempFatigue);
+
     }
 
-    public void returnFieldCards(){
-        for(int i=0; i<fieldCards1.size(); i++){
+    public void putToFatigueCa(Card card, int side){
+        int id = card.getId();
+        if(side == 1){
+            for(int i=0;i<fieldCards1.size();i++){
+                Card tempCard = fieldCards1.get(i);
+                int idT = tempCard.getId();
+                if(id == idT){
+                    fatigueList1.add(tempCard);
+                }
+                }
+            } else {
+            for (int j = 0; j < fieldCards2.size(); j++) {
+                Card tempCard = fieldCards2.get(j);
+                int idT = tempCard.getId();
+                if (id == idT) {
+                    fatigueList2.add(tempCard);
+                }
+            }
+        }
+    }
+
+    public void returnFieldCards() {
+        for (int i = 0; i < fieldCards1.size(); i++) {
             System.out.println(fieldCards1.get(i));
         }
     }
 
-    public void clearFatigue(int sideNumber){
-        if(sideNumber == 1){
+    public void clearFatigue(int sideNumber) {
+        if (sideNumber == 1) {
             fatigueList1.clear();
         } else {
             fatigueList2.clear();
         }
     }
 
-    public boolean checkIfCardExistOnField(int number){
-        return  number - 1 <= fieldCards1.size();
+    public boolean checkIfCardExistOnField(int number) {
+        return number <= fieldCards1.size();
     }
 
-    public boolean checkEnemyCards(){
-        if(fieldCards2.size() > 0){
+    public boolean checkAICards() {
+        if (fieldCards2.size() > 0) {
             return true;
-        } return false;
+        }
+        return false;
     }
 
-    public boolean checkIfPlayerCardsField(){
-        if(fieldCards1.size() > 0){
+    public boolean checkIfPlayerCardsField() {
+        if (fieldCards1.size() > 0) {
             return true;
-        } return false;
+        }
+        return false;
     }
 
-    public int getCardStrengh(int number){
-        Card card = fieldCards1.get(number -1);
+    public int getCardStrengh(int number) {
+        Card card = fieldCards1.get(number);
         return card.getStrenght();
     }
 
-    public void giveEnemyCards(){
-        for(int i=0; i<fieldCards2.size(); i++)
+    public void giveEnemyCards() {
+        for (int i = 0; i < fieldCards2.size(); i++)
             System.out.println(fieldCards2.get(i));
     }
 
-    public int getCardHealth(int number){
-        Card card = fieldCards1.get(number - 1);
+    public int getCardHealth(int number) {
+        Card card = fieldCards1.get(number);
         return card.getHealth();
     }
 
-    public String getCardName(int number){
-        Card card = fieldCards1.get(number - 1);
+    public String getCardName(int number) {
+        Card card = fieldCards1.get(number);
         return card.getName();
     }
 
-    public boolean checkIfCardFatugued(int number){
-        Card card = fieldCards1.get(number -1);
+    public boolean checkIfCardFatugued(int number, int side) {
+        if (side == 1) {
+            Card card = fieldCards1.get(number);
+            int id = card.getId();
+            for (int i = 0; i < fatigueList1.size(); i++) {
+                Card cardF = fatigueList1.get(i);
+                int idF = cardF.getId();
+                if (id == idF) {
+                    return true;
+                }
+
+            }
+            return false;
+        }
+        Card card = fieldCards2.get(number);
         int id = card.getId();
-        for(int i=0;i< fatigueList1.size(); i++){
-            Card cardF = fatigueList1.get(i);
+        for (int i = 0; i < fatigueList2.size(); i++) {
+            Card cardF = fatigueList2.get(i);
             int idF = cardF.getId();
-            if(id == idF){
+            if (id == idF) {
                 return true;
             }
-
-        }return false;
+        }
+        return false;
     }
 
-    public boolean isFieldEmpty(){
-        if(fieldCards1.size() <= 0){
+    public boolean isFieldEmpty() {
+        if (fieldCards1.size() <= 0) {
             return true;
-        } return false;
+        }
+        return false;
     }
 
+    public ArrayList<Card> returnAiFCards() {
+        return fieldCards2;
+    }
 
+    public ArrayList<Card> returnPlayerFCards() {
+        return fieldCards1;
+    }
+
+    public Card returnCardElement(int number, int side) {
+        if (side == 1) {
+            return fieldCards1.get(number);
+        }
+        return fieldCards2.get(number);
+    }
+
+    private void removeCardById(int id, int number) {
+        if (number == 1) {
+            for (int i = 0; i < fieldCards2.size(); i++) {
+                Card card = returnCardElement(i, number);
+                int idC = card.getId();
+                if (idC == id) {
+                    fieldCards2.remove(i);
+                }
+            }
+        } else {
+            for (int i = 0; i < fieldCards1.size(); i++) {
+                Card card = returnCardElement(i, number);
+                int idC = card.getId();
+                if (idC == id) {
+                    fieldCards1.remove(i);
+                }
+            }
+        }
+    }
+
+    public int verifyAttackWithMinion(Card attackCard, Card enemyCard) {
+        int willKillNotSurv = 1;
+        int willKillSurv = 2;
+        int willNKillNSurv = 3;
+        int willNKillSurv = 4;
+        int attackCardHealth = attackCard.getHealth();
+        int attackCardStrenght = attackCard.getStrenght();
+        int enemyCardHealth = enemyCard.getHealth();
+        int enemyCardStrenght = enemyCard.getStrenght();
+        if (attackCardStrenght >= enemyCardHealth && enemyCardStrenght < attackCardHealth) {
+            return willKillSurv;
+        } else if (attackCardStrenght > enemyCardHealth && enemyCardStrenght >= attackCardHealth) {
+            return willKillNotSurv;
+        } else if (attackCardStrenght < enemyCardHealth && enemyCardStrenght >= attackCardHealth) {
+            return willNKillNSurv;
+        } else if (attackCardStrenght < enemyCardHealth && enemyCardStrenght < attackCardHealth) {
+            return willNKillSurv;
+        } else return 5;
+    }
+
+    public void minionAttack(Card attack, Card enemy, int side) {
+        int attackId = attack.getId();
+        String attackCardName = attack.getName();
+        int attackCardHealth = attack.getHealth();
+        int attackCardStrenght = attack.getStrenght();
+        int enemyId = enemy.getId();
+        String enemyCardName = enemy.getName();
+        int enemyCardHealth = enemy.getHealth();
+        int enemyCardStrenght = enemy.getStrenght();
+        if (attackCardStrenght >= enemyCardHealth && enemyCardStrenght < attackCardHealth) {
+            System.out.println(attackCardName + " have destroyed " + enemyCardName);
+            removeCardById(attackId, side);
+            putToFatigueCa(attack, side);
+        } else if (attackCardStrenght > enemyCardHealth && enemyCardStrenght >= attackCardHealth) {
+            System.out.println(attackCardName + " have destroyed " + enemyCardName + " and was also destroyed");
+            removeCardById(attackId, 1);
+            removeCardById(enemyId, 2);
+        } else if (attackCardStrenght < enemyCardHealth && enemyCardStrenght >= attackCardHealth) {
+            System.out.println(attackCardName + " have attacked " + enemyCardName + " but failed to destroy it and\n"
+                    + attackCardName + " destroyed in the process ");
+            if (side == 1){
+                removeCardById(attackId, 2);
+            } else {
+                removeCardById(attackId, 1);
+            }
+        } else if (attackCardStrenght < enemyCardHealth && enemyCardStrenght < attackCardHealth) {
+            System.out.println(attackCardName + " have attached " + enemyCardName + " but failed to destroy it.");
+        }
+    }
 }

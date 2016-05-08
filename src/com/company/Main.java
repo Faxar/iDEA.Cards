@@ -8,25 +8,25 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int number;
+        int numberS;
         int turn = 1;
         Scanner newScanner = new Scanner(System.in);
 
         Card card1 = new Card(1, "Scout", 1, 1, 1);
-        Card card2 = new Card(2, "Space Marine", 1, 1, 1);
-        Card card3 = new Card(3, "Inquisitor", 1, 1, 1);
-        Card card4 = new Card(4, "Chaplain", 1, 1, 1);
-        Card card5 = new Card(5, "Terminator", 1, 1, 1);
+        Card card2 = new Card(2, "Space Marine", 2, 2, 2);
+        Card card3 = new Card(3, "Inquisitor", 3, 3, 3);
+        Card card4 = new Card(4, "Chaplain", 4, 4, 4);
+        Card card5 = new Card(5, "Terminator", 5, 5, 5);
         Card card6 = new Card(6, "Dreadnought", 8, 8, 8);
         Card card7 = new Card(7, "Primarch", 10, 10, 10);
 
 
-        Card aiCard1 = new Card(1, "Scout", 1, 1, 1);
-        Card aiCard2 = new Card(2, "Space Marine", 2, 2, 2);
-        Card aiCard3 = new Card(3, "Inquisitor", 3, 3, 3);
-        Card aiCard4 = new Card(4, "Chaplain", 3, 3, 4);
-        Card aiCard5 = new Card(5, "Terminator", 3, 3, 5);
-        Card aiCard6 = new Card(6, "Dreadnought", 8, 8, 6);
+        Card aiCard1 = new Card(1, "Cultist", 1, 1, 1);
+        Card aiCard2 = new Card(2, "Chaos Space Marine", 2, 2, 2);
+        Card aiCard3 = new Card(3, "Defiler", 3, 3, 3);
+        Card aiCard4 = new Card(4, "Sorcerer", 3, 3, 4);
+        Card aiCard5 = new Card(5, "Corrupted Terminator", 3, 3, 5);
+        Card aiCard6 = new Card(6, "Fell Dreadnought", 8, 8, 6);
 
 
         Deck aiDeck = new Deck("ai Deck");
@@ -70,7 +70,7 @@ public class Main {
         boolean endGame = false;
         while (!endGame) {
 
-            newField.giveEnemyCards();
+            System.out.println("==============================================");
             System.out.println("Turn " + turn);
             System.out.println("You have currently: " + player1.hand.getTempMana() + " mana in mana pool.");
             printMenu(player1.hand.isHandEmpty(), newField.isFieldEmpty());
@@ -78,19 +78,19 @@ public class Main {
 
 
             try {
-                number = newScanner.nextInt();
+                numberS = scanner();
             } catch (InputMismatchException e) {
                 System.out.println("Please enter correct number");
                 continue;
             }
 
 
-            switch (number) {
+            switch (numberS) {
 
-                case 1:
+                case 0:
                     System.out.println("Enter card number");
                     player1.hand.checkCards();
-                    number = newScanner.nextInt();
+                    int number = scanner();
                     if (number < 0) {
                         System.out.println("Please enter positive number");
                     } else if (player1.hand.checkIfCardExist(number)) {
@@ -107,29 +107,36 @@ public class Main {
                     }
                     break;
 
-                case 2:
+                case 1:
+                    System.out.println("Ai have following cards on the field");
+                    newField.giveEnemyCards();
                     System.out.println("Select card to attack with");
                     newField.returnFieldCards();
-                    int cardNumber = newScanner.nextInt();
+                    int cardNumber = scanner();
                     if(newField.checkIfCardExistOnField(cardNumber)){
-                        if(!newField.checkIfCardFatugued(cardNumber)){
+                        if(!newField.checkIfCardFatugued(cardNumber, 1)){
                                 int damage = newField.getCardStrengh(cardNumber);
                                 int health = newField.getCardHealth(cardNumber);
-                                if(!newField.checkEnemyCards()){
+                                if(newField.checkAICards()){
                                     System.out.println("Please select target");
                                     System.out.println("1 - Attack AI\n" +
-                                            "2 - Attack card on the filed" +
+                                            "2 - Attack card on the filed\n" +
                                             "3 - Cancel");
                                     number = newScanner.nextInt();
-                                    newField.giveEnemyCards();
                                     switch (number){
                                         case 1:
-                                            //ai.removeHealth(damage);
+                                            ai.hand.removePlayerHealth(damage);
                                             System.out.println("AI received " + damage + " points of damage");
-                                            //System.out.println("New AI health = " + ai.getAiHealth());
-                                            newField.putToFatugue(cardNumber);
+                                            System.out.println("New AI health = " + ai.hand.checkHealth());
+                                            newField.putToFatugue(cardNumber, 1);
                                             break;
                                         case 2:
+                                            System.out.println("Select card that you want to attack: ");
+                                            newField.giveEnemyCards();
+                                            int target = scanner();
+                                            Card attacker = newField.returnCardElement(cardNumber, 1);
+                                            Card targetCard = newField.returnCardElement(target, 2);
+                                            newField.minionAttack(attacker, targetCard, 1);
                                             break;
                                         case 3:
                                             break;
@@ -144,7 +151,7 @@ public class Main {
                     } break;
 
 
-                case 3:
+                case 2:
                     if (player1.hand.checkAmountOfCards() >= 3 && newDeck.amountCardsInDeck() > 0) {
                         Card burned = newDeck.fetch();
                         System.out.println("You have full hand.\n" + burned + '\n' + " have burned down");
@@ -155,11 +162,11 @@ public class Main {
                         System.out.println("You have pulled " + pullFromDeck + " card");
                     } else {
                         System.out.println("You have " + newDeck.amountCardsInDeck() + " cards, left in your deck");
-                        System.out.println("Your current health is " + player1.hand.checkPlayerHealth());
+                        System.out.println("Your current health is " + player1.hand.checkHealth());
                         player1.hand.removePlayerHealth(5);
                         System.out.println("You are suffering fatigue death and you have lost 5 Health");
-                        System.out.println("Your new health number is " + player1.hand.checkPlayerHealth());
-                        if (player1.hand.checkPlayerHealth() <= 0) {
+                        System.out.println("Your new health number is " + player1.hand.checkHealth());
+                        if (player1.hand.checkHealth() <= 0) {
                             System.out.println("You Dead! MuaHaHaHa!");
                             endGame = true;
                             break;
@@ -171,7 +178,7 @@ public class Main {
                     ai.aiLogic(player1.hand, newField, ai.hand);
                     break;
 
-                case 4:
+                case 3:
                     System.out.println("Weakling!");
                     endGame = true;
                     break;
@@ -214,7 +221,7 @@ public class Main {
         try {
             Scanner newScanner = new Scanner(System.in);
              number = newScanner.nextInt();
-            return number;
+            return number - 1;
         } catch (InputMismatchException e) {
             return 0;
         }

@@ -39,7 +39,7 @@ public class Hand {
 
 
     public Card getCard(int number){
-        return myHand.remove(number - 1);
+        return myHand.remove(number);
     }
 
     public int getMana() {
@@ -55,7 +55,7 @@ public class Hand {
     }
 
     public boolean checkIfCardExist(int number){
-        return number - 1 < myHand.size();
+        return number < myHand.size();
     }
 
     public int checkAmountOfCards(){
@@ -66,7 +66,7 @@ public class Hand {
         myHand.add(card);
     }
 
-    public int checkPlayerHealth(){
+    public int checkHealth(){
         return health;
     }
 
@@ -87,7 +87,7 @@ public class Hand {
 
     public int getManaCard(int number){
         int mana;
-        Card card = myHand.get(number - 1);
+        Card card = myHand.get(number);
         return mana = card.getMana();
     }
 
@@ -99,6 +99,10 @@ public class Hand {
 
     public ArrayList<Card> getArray(){
         return myHand;
+    }
+
+    public Card returnCard(int number){
+        return myHand.get(number);
     }
 
 }
