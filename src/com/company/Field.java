@@ -42,7 +42,7 @@ public class Field {
     }
 
     public void putToFatugue(int number, int side) {
-        if (side == 1){
+        if (side == 1) {
             Card tempFatigue = fieldCards1.get(number);
             fatigueList1.add(tempFatigue);
         }
@@ -51,17 +51,17 @@ public class Field {
 
     }
 
-    public void putToFatigueCa(Card card, int side){
+    public void putToFatigueCa(Card card, int side) {
         int id = card.getId();
-        if(side == 1){
-            for(int i=0;i<fieldCards1.size();i++){
+        if (side == 1) {
+            for (int i = 0; i < fieldCards1.size(); i++) {
                 Card tempCard = fieldCards1.get(i);
                 int idT = tempCard.getId();
-                if(id == idT){
+                if (id == idT) {
                     fatigueList1.add(tempCard);
                 }
-                }
-            } else {
+            }
+        } else {
             for (int j = 0; j < fieldCards2.size(); j++) {
                 Card tempCard = fieldCards2.get(j);
                 int idT = tempCard.getId();
@@ -74,7 +74,11 @@ public class Field {
 
     public void returnFieldCards() {
         for (int i = 0; i < fieldCards1.size(); i++) {
-            System.out.println(fieldCards1.get(i));
+            Card fCard = fieldCards1.get(i);
+            String fName = fCard.getName();
+            int fStrength = fCard.getStrenght();
+            int fHealth = fCard.getHealth();
+            System.out.println(fName + " | Strength:" + fStrength + " Health:" + fHealth);
         }
     }
 
@@ -91,17 +95,11 @@ public class Field {
     }
 
     public boolean checkAICards() {
-        if (fieldCards2.size() > 0) {
-            return true;
-        }
-        return false;
+        return (fieldCards2.size() > 0);
     }
 
     public boolean checkIfPlayerCardsField() {
-        if (fieldCards1.size() > 0) {
-            return true;
-        }
-        return false;
+        return (fieldCards1.size() > 0);
     }
 
     public int getCardStrengh(int number) {
@@ -202,13 +200,13 @@ public class Field {
         int enemyCardHealth = enemyCard.getHealth();
         int enemyCardStrenght = enemyCard.getStrenght();
         if (attackCardStrenght >= enemyCardHealth && enemyCardStrenght < attackCardHealth) {
-            return willKillSurv;
+            return willKillSurv; //2
         } else if (attackCardStrenght > enemyCardHealth && enemyCardStrenght >= attackCardHealth) {
-            return willKillNotSurv;
+            return willKillNotSurv; //1
         } else if (attackCardStrenght < enemyCardHealth && enemyCardStrenght >= attackCardHealth) {
-            return willNKillNSurv;
+            return willNKillNSurv; //3
         } else if (attackCardStrenght < enemyCardHealth && enemyCardStrenght < attackCardHealth) {
-            return willNKillSurv;
+            return willNKillSurv; //4
         } else return 5;
     }
 
@@ -223,7 +221,7 @@ public class Field {
         int enemyCardStrenght = enemy.getStrenght();
         if (attackCardStrenght >= enemyCardHealth && enemyCardStrenght < attackCardHealth) {
             System.out.println(attackCardName + " have destroyed " + enemyCardName);
-            removeCardById(attackId, side);
+            removeCardById(enemyId, side);
             putToFatigueCa(attack, side);
         } else if (attackCardStrenght > enemyCardHealth && enemyCardStrenght >= attackCardHealth) {
             System.out.println(attackCardName + " have destroyed " + enemyCardName + " and was also destroyed");
@@ -232,7 +230,7 @@ public class Field {
         } else if (attackCardStrenght < enemyCardHealth && enemyCardStrenght >= attackCardHealth) {
             System.out.println(attackCardName + " have attacked " + enemyCardName + " but failed to destroy it and\n"
                     + attackCardName + " destroyed in the process ");
-            if (side == 1){
+            if (side == 1) {
                 removeCardById(attackId, 2);
             } else {
                 removeCardById(attackId, 1);

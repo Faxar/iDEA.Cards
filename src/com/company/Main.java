@@ -49,7 +49,7 @@ public class Main {
         newDeck.populateDeck(card5);
         newDeck.populateDeck(card6);
         newDeck.populateDeck(card7);
-        newDeck.shuffle();   //Shuffle your hand
+        newDeck.shuffle();
 
         Player player1 = new Player();
         player1.hand = new Hand("my Hand");
@@ -59,7 +59,6 @@ public class Main {
         ai.hand = new Hand("ai Hand");
         ai.deck = aiDeck;
         ai.hand.populateHand(aiDeck);
-        //ai.hand.checkCards();
 
         Card tempCard;
 
@@ -90,19 +89,21 @@ public class Main {
                 case 0:
                     System.out.println("Enter card number");
                     player1.hand.checkCards();
-                    int number = scanner();
-                    if (number < 0) {
+                    int cNumber = scanner();
+                    if (cNumber < 0) {
                         System.out.println("Please enter positive number");
-                    } else if (player1.hand.checkIfCardExist(number)) {
-                        if(player1.hand.getManaCard(number) <= player1.hand.getMana()) {
-                            int cardManaCost = player1.hand.getManaCard(number);
-                            tempCard = player1.hand.getCard(number);
-                            newField.putCardOnF(tempCard, 1);
-                            System.out.println("Now on the field there is:");
-                            player1.hand.modifyTempMana(cardManaCost);
-                            newField.returnFieldCards();
-                        } else {
-                            System.out.println("You don't have enough mana. Your current mana pool is " + player1.hand.getMana() );
+                    } else {
+                        if (player1.hand.checkIfCardExist(cNumber)) {
+                            if (player1.hand.getManaCard(cNumber) <= player1.hand.getMana()) {
+                                int cardManaCost = player1.hand.getManaCard(cNumber);
+                                tempCard = player1.hand.getCard(cNumber);
+                                newField.putCardOnF(tempCard, 1);
+                                System.out.println("Now on the field there is:");
+                                player1.hand.modifyTempMana(cardManaCost);
+                                newField.returnFieldCards();
+                            } else {
+                                System.out.println("You don't have enough mana. Your current mana pool is " + player1.hand.getMana());
+                            }
                         }
                     }
                     break;
@@ -116,21 +117,20 @@ public class Main {
                     if(newField.checkIfCardExistOnField(cardNumber)){
                         if(!newField.checkIfCardFatugued(cardNumber, 1)){
                                 int damage = newField.getCardStrengh(cardNumber);
-                                int health = newField.getCardHealth(cardNumber);
                                 if(newField.checkAICards()){
                                     System.out.println("Please select target");
                                     System.out.println("1 - Attack AI\n" +
                                             "2 - Attack card on the filed\n" +
                                             "3 - Cancel");
-                                    number = newScanner.nextInt();
+                                    int number = scanner();
                                     switch (number){
-                                        case 1:
+                                        case 0:
                                             ai.hand.removePlayerHealth(damage);
                                             System.out.println("AI received " + damage + " points of damage");
                                             System.out.println("New AI health = " + ai.hand.checkHealth());
                                             newField.putToFatugue(cardNumber, 1);
                                             break;
-                                        case 2:
+                                        case 1:
                                             System.out.println("Select card that you want to attack: ");
                                             newField.giveEnemyCards();
                                             int target = scanner();
@@ -138,7 +138,7 @@ public class Main {
                                             Card targetCard = newField.returnCardElement(target, 2);
                                             newField.minionAttack(attacker, targetCard, 1);
                                             break;
-                                        case 3:
+                                        case 2:
                                             break;
                                     }
                                 }
@@ -175,7 +175,7 @@ public class Main {
                     turn++;
                     newField.clearFatigue(1);
                     player1.hand.modifyMana();
-                    ai.aiLogic(player1.hand, newField, ai.hand);
+                    ai.aiLogic(player1.hand, newField, ai.hand, ai.deck);
                     break;
 
                 case 3:
