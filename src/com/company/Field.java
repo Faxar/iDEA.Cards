@@ -76,7 +76,7 @@ public class Field {
             String fName = fCard.getName();
             int fStrength = fCard.getStrenght();
             int fHealth = fCard.getHealth();
-            System.out.println((i + 1) + ". " + fName + " | Strength: " + fStrength + " Health: " + fHealth);
+            System.out.println((i+1) + ". " + fName + " | Strength:" + fStrength + " Health:" + fHealth);
         }
     }
 

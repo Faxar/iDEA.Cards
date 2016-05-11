@@ -18,7 +18,7 @@ public class Hand {
         this.hand = hand;
         this.numberOfCards = 3;
         this.myHand = new ArrayList<>();
-        this.health = 10;
+        this.health = 50;
         this.mana = 3;
         this.tempMana = 3;
     }
@@ -31,13 +31,13 @@ public class Hand {
 
     public void checkCards() {
         Card tmpCard;
-        for (int i = 0; i < myHand.size(); i++) {
+        for(int i=0;i < myHand.size(); i++){
             tmpCard = myHand.get(i);
             System.out.println(
-                    (i + 1) + ". " + tmpCard.getName() +
-                    " | Strength: " + tmpCard.getStrenght() +
-                    ", Health: " + tmpCard.getHealth() +
-                    ", Mana: " + tmpCard.getMana()
+                    (i+1) + ". " + tmpCard.getName() +
+                            " | Strength: " + tmpCard.getStrenght() +
+                            " , Health: " + tmpCard.getHealth() +
+                            " , Mana: " + tmpCard.getMana()
             );
         }
     }

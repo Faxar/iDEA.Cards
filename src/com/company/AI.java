@@ -13,8 +13,13 @@ public class AI {
 
 
     public boolean aiLogic(Hand player1, Field allField, Hand ai, Deck aiD) {
-        Card pulledFromD = aiD.fetch();
-        ai.endTurnCardDrow(pulledFromD);
+        Card pulledFromD;
+        if(aiD.amountCardsInDeck() > 0){
+            pulledFromD = aiD.fetch();
+            ai.endTurnCardDrow(pulledFromD);
+            String cName = pulledFromD.getName();
+            System.out.println("Ai pulled from deck " + cName);
+        }
         Collections.sort(ai.getArray(), new CustomComparator());
         //System.out.println("Ai have in the hand:");
         //ai.checkCards();
