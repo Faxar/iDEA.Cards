@@ -55,7 +55,6 @@ public class Player {
         System.out.println("You have following cards in your hand : ");
         player1.checkCards();
 
-        boolean endGame;
         boolean endTurn = false;
         while (!endTurn) {
 
@@ -114,7 +113,7 @@ public class Player {
                                         if (ai.checkHealth() <= 0) {
                                             System.out.println("People! Rejoice! We finally vanquished this evil AI!");
                                             System.out.println("====================================================");
-                                            return endGame = true;
+                                            return true;
                                         }
                                         break;
                                     case 1:
@@ -156,7 +155,7 @@ public class Player {
                         System.out.println("Your new health number is " + player1.checkHealth());
                         if (player1.checkHealth() <= 0) {
                             System.out.println("You Dead! MuaHaHaHa!");
-                            return endGame = true;
+                            return true;
                         }
                     }
                     turn++;
@@ -167,10 +166,10 @@ public class Player {
 
                 case 3:
                     System.out.println("Weakling!");
-                    return endGame = true;
+                    return true;
             }
         }
-        return endGame = false;
+        return false;
     }
 
 }

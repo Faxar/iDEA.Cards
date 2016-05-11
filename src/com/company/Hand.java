@@ -30,8 +30,16 @@ public class Hand {
     }
 
     public void checkCards() {
-        for (int i = 0; i < myHand.size(); i++)
-            System.out.println(myHand.get(i));
+        Card tmpCard;
+        for (int i = 0; i < myHand.size(); i++) {
+            tmpCard = myHand.get(i);
+            System.out.println(
+                    (i + 1) + ". " + tmpCard.getName() +
+                    " | Strength: " + tmpCard.getStrenght() +
+                    ", Health: " + tmpCard.getHealth() +
+                    ", Mana: " + tmpCard.getMana()
+            );
+        }
     }
 
 

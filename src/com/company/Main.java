@@ -50,15 +50,13 @@ public class Main {
         ai.hand.populateHand(aiDeck);
 
         startGame();
-        boolean endGame = false;
 
-        while (!endGame) {
+        while (true) {
             if (player1.menu(player1.hand, newField, ai.hand, player1.deck)) {
-                endGame = true;
                 break;
             }
             if (ai.aiLogic(player1.hand, newField, ai.hand, ai.deck)) {
-                endGame = true;
+                break;
             }
         }
 
