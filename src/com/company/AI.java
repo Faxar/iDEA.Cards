@@ -35,19 +35,12 @@ public class AI {
         aiAttackFace(player1, allField);
         ai.modifyMana();
         allField.clearFatigue(2);
-        if(player1.checkHealth() <= 0){
+        if (player1.checkHealth() <= 0) {
             System.out.println("And again AI reigns supreme! MuaHaHaHa!");
             System.out.println("========================================");
             return true;
         }
         return false;
-    }
-
-    public class CustomComparator implements Comparator<Card> {
-        @Override
-        public int compare(Card o1, Card o2) {
-            return o2.getMana() - o1.getMana();
-        }
     }
 
     private void aiAttackMinion(Hand player1, Field allField) {
@@ -86,6 +79,13 @@ public class AI {
                 System.out.println("Player health down to " + player1.checkHealth());
                 allField.putToFatugue(i, 2);
             }
+        }
+    }
+
+    public class CustomComparator implements Comparator<Card> {
+        @Override
+        public int compare(Card o1, Card o2) {
+            return o2.getMana() - o1.getMana();
         }
     }
 

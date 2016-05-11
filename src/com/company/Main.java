@@ -13,14 +13,12 @@ public class Main {
         Card card6 = new Card(6, "Dreadnought", 8, 8, 8);
         Card card7 = new Card(7, "Primarch", 10, 10, 10);
 
-
         Card aiCard1 = new Card(1, "Cultist", 1, 1, 1);
         Card aiCard2 = new Card(2, "Chaos Space Marine", 2, 2, 2);
         Card aiCard3 = new Card(3, "Defiler", 3, 3, 3);
         Card aiCard4 = new Card(4, "Sorcerer", 3, 3, 4);
         Card aiCard5 = new Card(5, "Corrupted Terminator", 3, 3, 5);
         Card aiCard6 = new Card(6, "Fell Dreadnought", 8, 8, 6);
-
 
         Deck aiDeck = new Deck("ai Deck");
         aiDeck.populateDeck(aiCard1);
@@ -59,18 +57,16 @@ public class Main {
                 endGame = true;
                 break;
             }
-            if(ai.aiLogic(player1.hand, newField, ai.hand, ai.deck)){
+            if (ai.aiLogic(player1.hand, newField, ai.hand, ai.deck)) {
                 endGame = true;
             }
         }
 
     }
 
-
     private static void startGame() {
         System.out.println("Let's the Games begin!");
     }
-
 
 }
 

@@ -1,9 +1,6 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * Created by vassili.holenev on 7.04.2016.
@@ -92,10 +89,7 @@ public class Hand {
     }
 
     public boolean isHandEmpty() {
-        if (myHand.size() <= 0) {
-            return true;
-        }
-        return false;
+        return (myHand.size() <= 0);
     }
 
     public ArrayList<Card> getArray() {

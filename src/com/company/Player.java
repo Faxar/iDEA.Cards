@@ -1,6 +1,5 @@
 package com.company;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -12,11 +11,46 @@ public class Player {
     public Deck deck;
     int turn = 1;
 
+    private static void printMenu(boolean isHandEmpty, boolean isFieldEmpty) {
+        if (isFieldEmpty && isHandEmpty) {
+            System.out.println("Please press action\n" +
+                    "Press 3 - End Turn\n" +
+                    "Press 4 - Surrender\n");
+        } else if (!isFieldEmpty && isHandEmpty) {
+            System.out.println("Please press action\n" +
+                    "Press 2 - Play Card on the field\n" +
+                    "Press 3 - End Turn\n" +
+                    "Press 4 - Surrender\n");
+        } else if (isFieldEmpty && !isHandEmpty) {
+            System.out.println("Please press action\n" +
+                    "Press 1 - Play Card from the hand\n" +
+                    "Press 3 - End Turn\n" +
+                    "Press 4 - Surrender\n");
+        } else {
+            System.out.println("Please press action\n" +
+                    "Press 1 - Play Card from the hand\n" +
+                    "Press 2 - Play Card on the field\n" +
+                    "Press 3 - End Turn\n" +
+                    "Press 4 - Surrender\n");
+        }
+
+
+    }
+
+    private static int scanner() {
+        int number;
+        try {
+            Scanner newScanner = new Scanner(System.in);
+            number = newScanner.nextInt();
+            return number - 1;
+        } catch (InputMismatchException e) {
+            return 0;
+        }
+    }
+
     public boolean menu(Hand player1, Field newField, Hand ai, Deck newDeck) {
 
-
         Card tempCard;
-
 
         System.out.println("You have following cards in your hand : ");
         player1.checkCards();
@@ -77,7 +111,7 @@ public class Player {
                                         System.out.println("AI received " + damage + " points of damage");
                                         System.out.println("New AI health = " + ai.checkHealth());
                                         newField.putToFatugue(cardNumber, 1);
-                                        if(ai.checkHealth() <= 0){
+                                        if (ai.checkHealth() <= 0) {
                                             System.out.println("People! Rejoice! We finally vanquished this evil AI!");
                                             System.out.println("====================================================");
                                             return endGame = true;
@@ -137,44 +171,6 @@ public class Player {
             }
         }
         return endGame = false;
-    }
-
-
-    private static void printMenu(boolean isHandEmpty, boolean isFieldEmpty) {
-        if (isFieldEmpty && isHandEmpty) {
-            System.out.println("Please press action\n" +
-                    "Press 3 - End Turn\n" +
-                    "Press 4 - Surrender\n");
-        } else if (!isFieldEmpty && isHandEmpty) {
-            System.out.println("Please press action\n" +
-                    "Press 2 - Play Card on the field\n" +
-                    "Press 3 - End Turn\n" +
-                    "Press 4 - Surrender\n");
-        } else if (isFieldEmpty && !isHandEmpty) {
-            System.out.println("Please press action\n" +
-                    "Press 1 - Play Card from the hand\n" +
-                    "Press 3 - End Turn\n" +
-                    "Press 4 - Surrender\n");
-        } else {
-            System.out.println("Please press action\n" +
-                    "Press 1 - Play Card from the hand\n" +
-                    "Press 2 - Play Card on the field\n" +
-                    "Press 3 - End Turn\n" +
-                    "Press 4 - Surrender\n");
-        }
-
-
-    }
-
-    private static int scanner() {
-        int number;
-        try {
-            Scanner newScanner = new Scanner(System.in);
-            number = newScanner.nextInt();
-            return number - 1;
-        } catch (InputMismatchException e) {
-            return 0;
-        }
     }
 
 }

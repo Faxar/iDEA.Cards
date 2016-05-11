@@ -1,7 +1,5 @@
 package com.company;
 
-import jdk.nashorn.internal.runtime.regexp.joni.CodeRangeBuffer;
-
 import java.util.ArrayList;
 
 /**
@@ -149,10 +147,7 @@ public class Field {
     }
 
     public boolean isFieldEmpty() {
-        if (fieldCards1.size() <= 0) {
-            return true;
-        }
-        return false;
+        return  (fieldCards1.size() <= 0);
     }
 
     public ArrayList<Card> returnAiFCards() {
