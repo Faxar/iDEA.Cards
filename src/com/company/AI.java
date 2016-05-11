@@ -12,7 +12,7 @@ public class AI {
     public Deck deck;
 
 
-    public void aiLogic(Hand player1, Field allField, Hand ai, Deck aiD) {
+    public boolean aiLogic(Hand player1, Field allField, Hand ai, Deck aiD) {
         Card pulledFromD = aiD.fetch();
         ai.endTurnCardDrow(pulledFromD);
         Collections.sort(ai.getArray(), new CustomComparator());
@@ -35,6 +35,12 @@ public class AI {
         aiAttackFace(player1, allField);
         ai.modifyMana();
         allField.clearFatigue(2);
+        if(player1.checkHealth() <= 0){
+            System.out.println("And again AI reigns supreme! MuaHaHaHa!");
+            System.out.println("========================================");
+            return true;
+        }
+        return false;
     }
 
     public class CustomComparator implements Comparator<Card> {
@@ -58,7 +64,6 @@ public class AI {
                     }
                 }
                 if (!allField.checkIfCardFatugued(j, 2)) {
-                    System.out.println("Card not fatigued");
                     int damage = aiMinion.getStrenght();
                     String mName = aiMinion.getName();
                     player1.removePlayerHealth(damage);

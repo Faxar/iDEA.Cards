@@ -77,6 +77,11 @@ public class Player {
                                         System.out.println("AI received " + damage + " points of damage");
                                         System.out.println("New AI health = " + ai.checkHealth());
                                         newField.putToFatugue(cardNumber, 1);
+                                        if(ai.checkHealth() <= 0){
+                                            System.out.println("People! Rejoice! We finally vanquished this evil AI!");
+                                            System.out.println("====================================================");
+                                            return endGame = true;
+                                        }
                                         break;
                                     case 1:
                                         System.out.println("Select card that you want to attack: ");

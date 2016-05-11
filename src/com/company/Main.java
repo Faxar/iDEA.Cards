@@ -1,15 +1,9 @@
 package com.company;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 public class Main {
 
 
     public static void main(String[] args) {
-
-
-        Scanner newScanner = new Scanner(System.in);
 
         Card card1 = new Card(1, "Scout", 1, 1, 1);
         Card card2 = new Card(2, "Space Marine", 2, 2, 2);
@@ -29,7 +23,6 @@ public class Main {
 
 
         Deck aiDeck = new Deck("ai Deck");
-
         aiDeck.populateDeck(aiCard1);
         aiDeck.populateDeck(aiCard2);
         aiDeck.populateDeck(aiCard3);
@@ -38,7 +31,6 @@ public class Main {
         aiDeck.populateDeck(aiCard6);
 
         aiDeck.shuffle();
-
         Deck newDeck = new Deck("Player1");
         Field newField = new Field();
         newDeck.populateDeck(card1);
@@ -65,8 +57,11 @@ public class Main {
         while (!endGame) {
             if (player1.menu(player1.hand, newField, ai.hand, player1.deck)) {
                 endGame = true;
+                break;
             }
-            ai.aiLogic(player1.hand, newField, ai.hand, ai.deck);
+            if(ai.aiLogic(player1.hand, newField, ai.hand, ai.deck)){
+                endGame = true;
+            }
         }
 
     }
