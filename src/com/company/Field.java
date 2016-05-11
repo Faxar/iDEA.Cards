@@ -45,10 +45,10 @@ public class Field {
         if (side == 1) {
             Card tempFatigue = fieldCards1.get(number);
             fatigueList1.add(tempFatigue);
+        } else {
+            Card tempFatigue = fieldCards2.get(number);
+            fatigueList2.add(tempFatigue);
         }
-        Card tempFatigue = fieldCards2.get(number);
-        fatigueList2.add(tempFatigue);
-
     }
 
     public void putToFatigueCa(Card card, int side) {
@@ -166,24 +166,25 @@ public class Field {
     public Card returnCardElement(int number, int side) {
         if (side == 1) {
             return fieldCards1.get(number);
+        } else {
+            return fieldCards2.get(number);
         }
-        return fieldCards2.get(number);
     }
 
-    private void removeCardById(int id, int number) {
+    private void removeCard(Card card, int number) {
         if (number == 1) {
-            for (int i = 0; i < fieldCards2.size(); i++) {
-                Card card = returnCardElement(i, number);
+            int cardId = card.getId();
+            for (int j = 0; j < fieldCards2.size(); j++) {
                 int idC = card.getId();
-                if (idC == id) {
-                    fieldCards2.remove(i);
+                if (idC == cardId) {
+                    fieldCards2.remove(j);
                 }
             }
         } else {
+            int cardId = card.getId();
             for (int i = 0; i < fieldCards1.size(); i++) {
-                Card card = returnCardElement(i, number);
                 int idC = card.getId();
-                if (idC == id) {
+                if (idC == cardId) {
                     fieldCards1.remove(i);
                 }
             }
@@ -201,7 +202,7 @@ public class Field {
         int enemyCardStrenght = enemyCard.getStrenght();
         if (attackCardStrenght >= enemyCardHealth && enemyCardStrenght < attackCardHealth) {
             return willKillSurv; //2
-        } else if (attackCardStrenght > enemyCardHealth && enemyCardStrenght >= attackCardHealth) {
+        } else if (attackCardStrenght >= enemyCardHealth && enemyCardStrenght >= attackCardHealth) {
             return willKillNotSurv; //1
         } else if (attackCardStrenght < enemyCardHealth && enemyCardStrenght >= attackCardHealth) {
             return willNKillNSurv; //3
@@ -221,19 +222,19 @@ public class Field {
         int enemyCardStrenght = enemy.getStrenght();
         if (attackCardStrenght >= enemyCardHealth && enemyCardStrenght < attackCardHealth) {
             System.out.println(attackCardName + " have destroyed " + enemyCardName);
-            removeCardById(enemyId, side);
+            removeCard(enemy, side);
             putToFatigueCa(attack, side);
-        } else if (attackCardStrenght > enemyCardHealth && enemyCardStrenght >= attackCardHealth) {
+        } else if (attackCardStrenght >= enemyCardHealth && enemyCardStrenght >= attackCardHealth) {
             System.out.println(attackCardName + " have destroyed " + enemyCardName + " and was also destroyed");
-            removeCardById(attackId, 1);
-            removeCardById(enemyId, 2);
+            removeCard(attack, 1);
+            removeCard(enemy, 2);
         } else if (attackCardStrenght < enemyCardHealth && enemyCardStrenght >= attackCardHealth) {
             System.out.println(attackCardName + " have attacked " + enemyCardName + " but failed to destroy it and\n"
                     + attackCardName + " destroyed in the process ");
             if (side == 1) {
-                removeCardById(attackId, 2);
+                removeCard(attack, 2);
             } else {
-                removeCardById(attackId, 1);
+                removeCard(attack, 1);
             }
         } else if (attackCardStrenght < enemyCardHealth && enemyCardStrenght < attackCardHealth) {
             System.out.println(attackCardName + " have attached " + enemyCardName + " but failed to destroy it.");

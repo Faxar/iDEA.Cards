@@ -13,8 +13,6 @@ public class Deck {
     private String name;
 
 
-
-
     public Deck(String name) {
         this.name = name;
         this.myCollection = new Stack<>();
@@ -24,28 +22,28 @@ public class Deck {
         return name;
     }
 
-    public int amountCardsInDeck(){
+    public int amountCardsInDeck() {
         return myCollection.size();
     }
 
 
-    public void populateDeck(Card card){
+    public void populateDeck(Card card) {
         myCollection.push(card);
     }
 
-    public void shuffle(){
+    public void shuffle() {
         Collections.shuffle(myCollection);
     }
 
-    public Card fetch(){
-        if(!myCollection.empty()){
+    public Card fetch() {
+        if (!myCollection.empty()) {
             return myCollection.pop();
         }
         return null;
     }
 
-    public void showCards(){
-        for(int i=0; i<myCollection.size(); i++){
+    public void showCards() {
+        for (int i = 0; i < myCollection.size(); i++) {
             System.out.println(myCollection.get(i));
         }
     }

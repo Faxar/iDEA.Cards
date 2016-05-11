@@ -12,7 +12,7 @@ public class Hand {
 
     public String hand;
     private int numberOfCards;
-    private ArrayList<Card> myHand;
+    private ArrayList<Card> myHand; //<Card 1, card2, >
     private int health;
     private int mana;
     private int tempMana;
@@ -26,19 +26,19 @@ public class Hand {
         this.tempMana = 3;
     }
 
-    public void populateHand(Deck deck){
-        for(int i=0; i<numberOfCards; i++){
+    public void populateHand(Deck deck) {
+        for (int i = 0; i < numberOfCards; i++) {
             myHand.add(deck.fetch());
         }
     }
 
-    public void checkCards(){
-        for(int i=0; i<myHand.size(); i++)
+    public void checkCards() {
+        for (int i = 0; i < myHand.size(); i++)
             System.out.println(myHand.get(i));
     }
 
 
-    public Card getCard(int number){
+    public Card getCard(int number) {
         return myHand.remove(number);
     }
 
@@ -50,58 +50,59 @@ public class Hand {
         return tempMana;
     }
 
-    public Card lastItem(){
-        return myHand.get(myHand.size()-1);
+    public Card lastItem() {
+        return myHand.get(myHand.size() - 1);
     }
 
-    public boolean checkIfCardExist(int number){
+    public boolean checkIfCardExist(int number) {
         return number < myHand.size();
     }
 
-    public int checkAmountOfCards(){
+    public int checkAmountOfCards() {
         return myHand.size();
     }
 
-    public void endTurnCardDrow(Card card){
+    public void endTurnCardDrow(Card card) {
         myHand.add(card);
     }
 
-    public int checkHealth(){
+    public int checkHealth() {
         return health;
     }
 
-    public void removePlayerHealth(int number){
+    public void removePlayerHealth(int number) {
         health -= number;
     }
 
-    public void modifyMana(){
-        if(mana < 10) {
+    public void modifyMana() {
+        if (mana < 10) {
             mana++;
             tempMana = mana;
         }
     }
 
-    public void modifyTempMana(int number){
-        tempMana -=number;
+    public void modifyTempMana(int number) {
+        tempMana -= number;
     }
 
-    public int getManaCard(int number){
+    public int getManaCard(int number) {
         int mana;
         Card card = myHand.get(number);
         return mana = card.getMana();
     }
 
-    public boolean isHandEmpty(){
-        if(myHand.size() <= 0){
+    public boolean isHandEmpty() {
+        if (myHand.size() <= 0) {
             return true;
-        } return false;
+        }
+        return false;
     }
 
-    public ArrayList<Card> getArray(){
+    public ArrayList<Card> getArray() {
         return myHand;
     }
 
-    public Card returnCard(int number){
+    public Card returnCard(int number) {
         return myHand.get(number);
     }
 

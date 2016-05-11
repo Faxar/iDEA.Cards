@@ -16,8 +16,8 @@ public class AI {
         Card pulledFromD = aiD.fetch();
         ai.endTurnCardDrow(pulledFromD);
         Collections.sort(ai.getArray(), new CustomComparator());
-        System.out.println("Ai have in the hand:");
-        ai.checkCards();
+        //System.out.println("Ai have in the hand:");
+        //ai.checkCards();
         for (int i = 0; i < ai.getArray().size(); i++) {
             Card tempCard = ai.returnCard(i);
             int tempCardMana = tempCard.getMana();
@@ -31,10 +31,8 @@ public class AI {
                 System.out.println("AI played on the field - " + tempName + " | Strength:" + tempStrength + " Health:" + tempHealth);
             }
         }
-        if (allField.checkAICards()) {
-            aiAttackMinion(player1, allField);
-            aiAttackFace(player1, allField);
-        }
+        aiAttackMinion(player1, allField);
+        aiAttackFace(player1, allField);
         ai.modifyMana();
         allField.clearFatigue(2);
     }
@@ -47,61 +45,31 @@ public class AI {
     }
 
     private void aiAttackMinion(Hand player1, Field allField) {
-            for (int j = 0; j < allField.returnAiFCards().size(); j++) {
-                if (!allField.checkIfCardFatugued(j, 2)) {
-                    Card aiMinion = allField.returnCardElement(j, 2);
-                    for (int i = 0; i < allField.returnPlayerFCards().size(); i++) {
-                        Card playerMinion = allField.returnCardElement(i, 1);
-                        int cardOutput = allField.verifyAttackWithMinion(aiMinion, playerMinion);
-                        if (cardOutput == 2) {
-                            allField.minionAttack(aiMinion, playerMinion, 2);
-                        } else if (cardOutput == 1) {
-                            allField.minionAttack(aiMinion, playerMinion, 2);
-                        }
+        for (int j = 0; j < allField.returnAiFCards().size(); j++) {
+            if (!allField.checkIfCardFatugued(j, 2)) {
+                Card aiMinion = allField.returnCardElement(j, 2);
+                for (int i = 0; i < allField.returnPlayerFCards().size(); i++) {
+                    Card playerMinion = allField.returnCardElement(i, 1);
+                    int cardOutput = allField.verifyAttackWithMinion(aiMinion, playerMinion);
+                    if (cardOutput == 2) {
+                        allField.minionAttack(aiMinion, playerMinion, 2);
+                    } else if (cardOutput == 1) {
+                        allField.minionAttack(aiMinion, playerMinion, 2);
                     }
-
+                }
+                if (!allField.checkIfCardFatugued(j, 2)) {
+                    System.out.println("Card not fatigued");
                     int damage = aiMinion.getStrenght();
+                    String mName = aiMinion.getName();
                     player1.removePlayerHealth(damage);
-                    System.out.println("AI inflicted " + damage + " damage to player");
+                    System.out.println("AI minion " + mName + " inflicted " + damage + " damage to player");
                     System.out.println("Player health down to " + player1.checkHealth());
                     allField.putToFatugue(j, 2);
                 }
+
             }
+        }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-//                 else if (cardOutput == 3) {
-//
-//                    } else if (cardOutput == 4) {
-//                        int damage = aiMinion.getStrenght();
-//                        player1.removePlayerHealth(damage);
-//                        System.out.println("AI inflicted " + damage + " damage to player");
-//                        System.out.println("Player health down to " + player1.checkHealth());
-//                        allField.putToFatugue(j, 2);
-//                    } else {
-//                        System.out.println("Strange behavior");
-//
-//
-//
-//
-//
-//
-//                    }
-//                }
-//
-//            }
-//        }
-
 
     private void aiAttackFace(Hand player1, Field allField) {
         for (int i = 0; i < allField.returnAiFCards().size(); i++) {
