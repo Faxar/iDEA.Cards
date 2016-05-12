@@ -11,14 +11,6 @@ public class Card {
     private int mana;
 
 
-    public Card(int id, String name, int strenght, int health, int mana) {
-        this.id = id;
-        this.name = name;
-        this.strenght = strenght;
-        this.health = health;
-        this.mana = mana;
-    }
-
     public int getId() {
         return id;
     }
@@ -37,6 +29,26 @@ public class Card {
 
     public int getMana() {
         return mana;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStrenght(int strenght) {
+        this.strenght = strenght;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
     }
 
     @Override

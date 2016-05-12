@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Cards>
+	<Card>
+		<id>1</id>
+		<Name>Scout</Name>
+		<Strength>1</Strength>
+		<Health>1</Health>
+		<Mana>1</Mana>
+	</Card>
+	<Card>
+		<id>2</id>
+		<Name>Inquisitor</Name>
+		<Strength>2</Strength>
+		<Health>2</Health>
+		<Mana>2</Mana>
+	</Card>
+	<Card>
+		<id>3</id>
+		<Name>Space Marine</Name>
+		<Strength>3</Strength>
+		<Health>3</Health>
+		<Mana>3</Mana>
+	</Card>
+	<Card>
+		<id>4</id>
+		<Name>Terminator</Name>
+		<Strength>4</Strength>
+		<Health>4</Health>
+		<Mana>4</Mana>
+	</Card>
+	<Card>
+		<id>5</id>
+		<Name>Drednought</Name>
+		<Strength>5</Strength>
+		<Health>5</Health>
+		<Mana>5</Mana>
+	</Card>
+</Cards>
