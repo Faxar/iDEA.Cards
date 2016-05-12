@@ -3,6 +3,19 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
+
+        Deck newDeck = new Deck("Player1");
+        Deck aiDeck = new Deck("ai Deck");
+        Player player1 = new Player();
+        player1.hand = new Hand("my Hand");
+        player1.deck = newDeck;
+        player1.hand.populateHand(newDeck);
+        AI ai = new AI();
+        ai.hand = new Hand("ai Hand");
+        ai.deck = aiDeck;
+        ai.hand.populateHand(aiDeck);
+        Field newField = new Field();
+
         startGame();
 
         while (true) {
@@ -39,7 +52,7 @@ public class Main {
 //
 //
 //
-//        Deck aiDeck = new Deck("ai Deck");
+//
 //        aiDeck.populateDeck(aiCard1);
 //        aiDeck.populateDeck(aiCard2);
 //        aiDeck.populateDeck(aiCard3);
@@ -48,8 +61,8 @@ public class Main {
 //        aiDeck.populateDeck(aiCard6);
 //
 //        aiDeck.shuffle();
-//        Deck newDeck = new Deck("Player1");
-//        Field newField = new Field();
+//        ;
+//
 //        newDeck.populateDeck(card1);
 //        newDeck.populateDeck(card2);
 //        newDeck.populateDeck(card3);
@@ -59,14 +72,7 @@ public class Main {
 //        newDeck.populateDeck(card7);
 //        newDeck.shuffle();
 //
-//        Player player1 = new Player();
-//        player1.hand = new Hand("my Hand");
-//        player1.deck = newDeck;
-//        player1.hand.populateHand(newDeck);
-//        AI ai = new AI();
-//        ai.hand = new Hand("ai Hand");
-//        ai.deck = aiDeck;
-//        ai.hand.populateHand(aiDeck);
+//
 
 
 //

@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class cardBuilder {
 
-    public static void builder(int number) {
+    public static void builder(int number, Deck player, Deck ai) {
         if (number == 1) {
             String filepath = "\\Users\\vassili.holenev\\IdeaProjects\\Test\\src\\com\\company\\space.xml";
             File xmlFile = new File(filepath);
@@ -105,6 +105,10 @@ public class cardBuilder {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = (Node) nodeList.item(0);
         return node.getNodeValue();
+    }
+
+    private void pushToDeck(Card card, Deck deck){
+
     }
 
 }
