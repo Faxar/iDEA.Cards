@@ -1,20 +1,38 @@
 package com.company;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import java.util.Random;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        Deck newDeck = new Deck("Player1");
-        Deck aiDeck = new Deck("ai Deck");
+        Deck newDeck = new Deck();
+        Deck aiDeck = new Deck();
         Player player1 = new Player();
         player1.hand = new Hand("my Hand");
         player1.deck = newDeck;
-        player1.hand.populateHand(newDeck);
         AI ai = new AI();
         ai.hand = new Hand("ai Hand");
         ai.deck = aiDeck;
-        ai.hand.populateHand(aiDeck);
         Field newField = new Field();
+
+        System.out.println("Choose your fate");
+        System.out.println("1 - Space Marines\n" +
+                            "2 - Orks\n" +
+                            "3 - Chaos\n" +
+                            "4 - Necrons");
+
+        int number = scanner();
+        cardBuilder.builder(player1.deck, number);
+        Random randomGenerator = new Random();
+        cardBuilder.builder(ai.deck, randomGenerator.nextInt(3) +1);
+        player1.deck.shuffle();
+        ai.deck.shuffle();
+        player1.hand.populateHand(newDeck);
+        ai.hand.populateHand(aiDeck);
+
 
         startGame();
 
@@ -32,52 +50,18 @@ public class Main {
     private static void startGame() {
         System.out.println("Let's the Games begin!");
     }
+
+    private static int scanner() {
+        int number;
+        try {
+            Scanner newScanner = new Scanner(System.in);
+            number = newScanner.nextInt();
+            return number;
+        } catch (InputMismatchException e) {
+            return 0;
+        }
+    }
 }
-
-
-//        Card card1 = new Card(1, "Scout", 1, 1, 1);
-//        Card card2 = new Card(2, "Space Marine", 2, 2, 2);
-//        Card card3 = new Card(3, "Inquisitor", 3, 3, 3);
-//        Card card4 = new Card(4, "Chaplain", 4, 4, 4);
-//        Card card5 = new Card(5, "Terminator", 5, 5, 5);
-//        Card card6 = new Card(6, "Dreadnought", 8, 8, 8);
-//        Card card7 = new Card(7, "Primarch", 10, 10, 10);
-//
-//        Card aiCard1 = new Card(1, "Cultist", 1, 1, 1);
-//        Card aiCard2 = new Card(2, "Chaos Space Marine", 2, 2, 2);
-//        Card aiCard3 = new Card(3, "Defiler", 3, 3, 3);
-//        Card aiCard4 = new Card(4, "Sorcerer", 3, 3, 4);
-//        Card aiCard5 = new Card(5, "Corrupted Terminator", 3, 3, 5);
-//        Card aiCard6 = new Card(6, "Fell Dreadnought", 8, 8, 6);
-//
-//
-//
-//
-//        aiDeck.populateDeck(aiCard1);
-//        aiDeck.populateDeck(aiCard2);
-//        aiDeck.populateDeck(aiCard3);
-//        aiDeck.populateDeck(aiCard4);
-//        aiDeck.populateDeck(aiCard5);
-//        aiDeck.populateDeck(aiCard6);
-//
-//        aiDeck.shuffle();
-//        ;
-//
-//        newDeck.populateDeck(card1);
-//        newDeck.populateDeck(card2);
-//        newDeck.populateDeck(card3);
-//        newDeck.populateDeck(card4);
-//        newDeck.populateDeck(card5);
-//        newDeck.populateDeck(card6);
-//        newDeck.populateDeck(card7);
-//        newDeck.shuffle();
-//
-//
-
-
-//
-
-//}
 
 
 

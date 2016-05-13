@@ -10,16 +10,10 @@ public class Deck {
 
 
     private Stack<Card> myCollection;
-    private String name;
 
 
-    public Deck(String name) {
-        this.name = name;
+    public Deck() {
         this.myCollection = new Stack<>();
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int amountCardsInDeck() {

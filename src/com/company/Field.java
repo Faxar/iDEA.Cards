@@ -12,7 +12,7 @@ public class Field {
     private ArrayList<Card> fatigueList1;
     private ArrayList<Card> fatigueList2;
 
-    private int maxLength = 3;
+    int maxLength = 3;
 
     public Field() {
         this.fieldCards1 = new ArrayList<>();

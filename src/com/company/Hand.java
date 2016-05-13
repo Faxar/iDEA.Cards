@@ -9,7 +9,7 @@ public class Hand {
 
     public String hand;
     private int numberOfCards;
-    private ArrayList<Card> myHand; //<Card 1, card2, >
+    private ArrayList<Card> myHand;
     private int health;
     private int mana;
     private int tempMana;
@@ -18,7 +18,7 @@ public class Hand {
         this.hand = hand;
         this.numberOfCards = 3;
         this.myHand = new ArrayList<>();
-        this.health = 50;
+        this.health = 30;
         this.mana = 3;
         this.tempMana = 3;
     }
@@ -91,9 +91,8 @@ public class Hand {
     }
 
     public int getManaCard(int number) {
-        int mana;
         Card card = myHand.get(number);
-        return mana = card.getMana();
+        return card.getMana();
     }
 
     public boolean isHandEmpty() {

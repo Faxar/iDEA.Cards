@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Cards>
+	<Card>
+		<id>1</id>
+		<Name>Necron Warrior</Name>
+		<Strength>2</Strength>
+		<Health>2</Health>
+		<Mana>2</Mana>
+	</Card>
+	<Card>
+		<id>2</id>
+		<Name>Necron Immortal</Name>
+		<Strength>3</Strength>
+		<Health>3</Health>
+		<Mana>3</Mana>
+	</Card>
+	<Card>
+		<id>3</id>
+		<Name>Necron Destroyer</Name>
+		<Strength>4</Strength>
+		<Health>3</Health>
+		<Mana>4</Mana>
+	</Card>
+	<Card>
+		<id>4</id>
+		<Name>Deathmark</Name>
+		<Strength>6</Strength>
+		<Health>3</Health>
+		<Mana>5</Mana>
+	</Card>
+	<Card>
+		<id>5</id>
+		<Name>Triarch Stalker</Name>
+		<Strength>7</Strength>
+		<Health>5</Health>
+		<Mana>6</Mana>
+	</Card>
+</Cards>

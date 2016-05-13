@@ -1,5 +1,7 @@
 package com.company;
 
+//Guide taken http://prologistic.com.ua/kak-chitat-xml-fajl-v-java-ispol-zuem-dom-parser.html
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -16,9 +18,8 @@ import java.util.List;
  */
 public class cardBuilder {
 
-    public static void builder(int number, Deck player, Deck ai) {
-        if (number == 1) {
-            String filepath = "\\Users\\vassili.holenev\\IdeaProjects\\Test\\src\\com\\company\\space.xml";
+    public static void builder(Deck deck, int number) {
+            String filepath = feedPath(number);
             File xmlFile = new File(filepath);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder;
@@ -26,21 +27,21 @@ public class cardBuilder {
                 builder = factory.newDocumentBuilder();
                 Document document = builder.parse(xmlFile);
                 document.getDocumentElement().normalize();
-                System.out.println("Корневой элемент: " + document.getDocumentElement().getNodeName());
-                // получаем узлы с именем Language
+                // получаем узлы с именем Card
                 // теперь XML полностью загружен в память
                 // в виде объекта Document
                 NodeList nodeList = document.getElementsByTagName("Card");
 
-                // создадим из него список объектов Language
+                // создадим из него список объектов Card
                 List<Card> cardList = new ArrayList<Card>();
                 for (int i = 0; i < nodeList.getLength(); i++) {
                     cardList.add(getLanguage(nodeList.item(i)));
                 }
 
-                // печатаем в консоль информацию по каждому объекту Language
+                // печатаем в консоль информацию по каждому объекту Card
                 for (Card card : cardList) {
-                    System.out.println(card.toString());
+                    deck.populateDeck(card);
+                    //System.out.println(card.toString());
                 }
             } catch (
                     Exception exc
@@ -49,43 +50,10 @@ public class cardBuilder {
             {
                 exc.printStackTrace();
             }
-        } else {
-            String filepath = "\\Users\\vassili.holenev\\IdeaProjects\\Test\\src\\com\\company\\chaos.xml";
-            File xmlFile = new File(filepath);
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder;
-            try {
-                builder = factory.newDocumentBuilder();
-                Document document = builder.parse(xmlFile);
-                document.getDocumentElement().normalize();
-                System.out.println("Корневой элемент: " + document.getDocumentElement().getNodeName());
-                // получаем узлы с именем Language
-                // теперь XML полностью загружен в память
-                // в виде объекта Document
-                NodeList nodeList = document.getElementsByTagName("Card");
-
-                // создадим из него список объектов Language
-                List<Card> cardList = new ArrayList<Card>();
-                for (int i = 0; i < nodeList.getLength(); i++) {
-                    cardList.add(getLanguage(nodeList.item(i)));
-                }
-
-                // печатаем в консоль информацию по каждому объекту Language
-                for (Card card : cardList) {
-                    System.out.println(card.toString());
-                }
-            } catch (
-                    Exception exc
-                    )
-
-            {
-                exc.printStackTrace();
-            }
-        }
     }
 
 
-    // создаем из узла документа объект Language
+    // создаем из узла документа объект Card
     private static Card getLanguage(Node node) {
         Card card = new Card();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -107,8 +75,16 @@ public class cardBuilder {
         return node.getNodeValue();
     }
 
-    private void pushToDeck(Card card, Deck deck){
-
+    private static String feedPath(int number){
+        if(number == 1){
+            return "\\Users\\vassili.holenev\\IdeaProjects\\Test\\src\\decks\\space.xml";
+        } else if (number == 2) {
+            return "\\Users\\vassili.holenev\\IdeaProjects\\Test\\src\\decks\\orks.xml";
+        } else if (number == 3){
+            return "\\Users\\vassili.holenev\\IdeaProjects\\Test\\src\\decks\\chaos.xml";
+        } else if (number == 4){
+            return "\\Users\\vassili.holenev\\IdeaProjects\\Test\\src\\decks\\necrons.xml";
+        } return null;
     }
 
 }
