@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Cards>
 	<Card>
+		<Minion>1</Minion>
 		<id>1</id>
 		<Name>Cultist</Name>
 		<Strength>1</Strength>
@@ -8,6 +9,7 @@
 		<Mana>1</Mana>
 	</Card>
 	<Card>
+		<Minion>1</Minion>
 		<id>2</id>
 		<Name>Curruptor</Name>
 		<Strength>2</Strength>
@@ -15,6 +17,7 @@
 		<Mana>2</Mana>
 	</Card>
 	<Card>
+		<Minion>1</Minion>
 		<id>3</id>
 		<Name>Chaos Space Marine</Name>
 		<Strength>3</Strength>
@@ -22,6 +25,7 @@
 		<Mana>3</Mana>
 	</Card>
 	<Card>
+		<Minion>1</Minion>
 		<id>4</id>
 		<Name>Defiler</Name>
 		<Strength>4</Strength>
@@ -29,10 +33,47 @@
 		<Mana>4</Mana>
 	</Card>
 	<Card>
+		<Minion>1</Minion>
 		<id>5</id>
 		<Name>Fell Drednought</Name>
 		<Strength>5</Strength>
 		<Health>5</Health>
 		<Mana>5</Mana>
+	</Card>
+	<Card>
+		<Minion>0</Minion>
+		<spellType>1</spellType>
+		<id>6</id>
+		<Name>Hand of Doom</Name>
+		<Power>1</Power>
+		<Mana>1</Mana>
+		<Description>Deal 1 damage</Description>
+	</Card>
+	<Card>
+		<Minion>0</Minion>
+		<spellType>1</spellType>
+		<id>7</id>
+		<Name>Hand of Apocalypse</Name>
+		<Power>2</Power>
+		<Mana>2</Mana>
+		<Description>Deal 2 damage</Description>
+	</Card>
+	<Card>
+		<Minion>0</Minion>
+		<spellType>2</spellType>
+		<id>7</id>
+		<Name>Blessing of the Gods</Name>
+		<modificator>2</modificator>
+		<Mana>2</Mana>
+		<Description>Increase minion damage +2</Description>
+	</Card>
+	<Card>
+		<Minion>0</Minion>
+		<spellType>3</spellType>
+		<id>7</id>
+		<Name>Mutations</Name>
+		<heal>2</heal>
+		<Mana>2</Mana>
+		<Description>Heal +2</Description>
 	</Card>
 </Cards>

@@ -23,7 +23,6 @@ public class Main {
                             "2 - Orks\n" +
                             "3 - Chaos\n" +
                             "4 - Necrons");
-
         int number = scanner();
         cardBuilder.builder(player1.deck, number);
         Random randomGenerator = new Random();

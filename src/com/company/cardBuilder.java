@@ -55,17 +55,40 @@ public class cardBuilder {
 
     // создаем из узла документа объект Card
     private static Card getLanguage(Node node) {
-        Card card = new Card();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
+            Card card = new Card();
             card.setId(Integer.parseInt(getTagValue("id", element)));
             card.setName(getTagValue("Name", element));
-            card.setStrenght(Integer.parseInt(getTagValue("Strength", element)));
-            card.setHealth(Integer.parseInt(getTagValue("Health", element)));
             card.setMana(Integer.parseInt(getTagValue("Mana", element)));
-        }
+            card.setIsMinion(Integer.parseInt(getTagValue("Minion", element)));
+            if(Integer.parseInt(getTagValue("Minion", element)) == 1) {
+                card.setStrenght(Integer.parseInt(getTagValue("Strength", element)));
+                card.setHealth(Integer.parseInt(getTagValue("Health", element)));
+                return card;
+            }else if (Integer.parseInt(getTagValue("Minion", element)) == 0){
+                if (Integer.parseInt(getTagValue("spellType", element))== 1){
+                    card.setSpellType(Integer.parseInt(getTagValue("spellType", element)));
+                    card.setPower(Integer.parseInt(getTagValue("Power", element)));
+                    card.setDesctiption(getTagValue("Description", element));
+                    return card;
+                } else if (Integer.parseInt(getTagValue("spellType", element)) == 2){
+                    card.setSpellType(Integer.parseInt(getTagValue("spellType", element)));
+                    card.setModificator(Integer.parseInt(getTagValue("modificator", element)));
+                    card.setDesctiption(getTagValue("Description", element));
+                    return card;
+                } else if (Integer.parseInt(getTagValue("spellType", element)) == 3){
+                    card.setSpellType(Integer.parseInt(getTagValue("spellType", element)));
+                    card.setHeal(Integer.parseInt(getTagValue("heal", element)));
+                    card.setDesctiption(getTagValue("Description", element));
+                    return card;
+                }
+            }
 
-        return card;
+        }
+        System.out.println("return null");
+        return null;
+
     }
 
     // получаем значение элемента по указанному тегу

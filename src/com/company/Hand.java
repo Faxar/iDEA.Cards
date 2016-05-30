@@ -33,17 +33,41 @@ public class Hand {
         Card tmpCard;
         for(int i=0;i < myHand.size(); i++){
             tmpCard = myHand.get(i);
-            System.out.println(
-                    (i+1) + ". " + tmpCard.getName() +
-                            " | Strength: " + tmpCard.getStrenght() +
-                            " , Health: " + tmpCard.getHealth() +
-                            " , Mana: " + tmpCard.getMana()
-            );
+            if(tmpCard.getIsMinion()== 1){
+                System.out.println(
+                        (i+1) + ". " + tmpCard.getName() +
+                                " | Strength: " + tmpCard.getStrenght() +
+                                " , Health: " + tmpCard.getHealth() +
+                                " , Mana: " + tmpCard.getMana());
+            } else if (tmpCard.getIsMinion() == 0) {
+                if (tmpCard.getSpellType() == 1) {
+                    System.out.println(
+                            (i + 1) + ". " + tmpCard.getName() +
+                                    " | Power: " + tmpCard.getPower() +
+                                    " , Mana: " + tmpCard.getMana() +
+                                    " | Description : " + tmpCard.getDesctiption()
+                    );
+                } else if (tmpCard.getSpellType() == 2) {
+                    System.out.println(
+                            (i + 1) + ". " + tmpCard.getName() +
+                                    " | Buff: " + tmpCard.getModificator() +
+                                    " , Mana: " + tmpCard.getMana() +
+                                    " | Description : " + tmpCard.getDesctiption()
+                    );
+                } else if (tmpCard.getSpellType() == 3){
+                    System.out.println(
+                            (i + 1) + ". " + tmpCard.getName() +
+                                    " | Heal: " + tmpCard.getHeal() +
+                                    " , Mana: " + tmpCard.getMana() +
+                                    " | Description : " + tmpCard.getDesctiption()
+                    );
+                }
+            }
         }
     }
 
 
-    public Card getCard(int number) {
+    public Card removeCardHand(int number) {
         return myHand.remove(number);
     }
 
@@ -53,10 +77,6 @@ public class Hand {
 
     public int getTempMana() {
         return tempMana;
-    }
-
-    public Card lastItem() {
-        return myHand.get(myHand.size() - 1);
     }
 
     public boolean checkIfCardExist(int number) {
@@ -90,11 +110,6 @@ public class Hand {
         tempMana -= number;
     }
 
-    public int getManaCard(int number) {
-        Card card = myHand.get(number);
-        return card.getMana();
-    }
-
     public boolean isHandEmpty() {
         return (myHand.size() <= 0);
     }
@@ -105,6 +120,10 @@ public class Hand {
 
     public Card returnCard(int number) {
         return myHand.get(number);
+    }
+
+    public void addPlayerHealth(int number){
+        health +=number;
     }
 
 }

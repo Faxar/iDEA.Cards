@@ -72,11 +72,8 @@ public class Field {
 
     public void returnFieldCards() {
         for (int i = 0; i < fieldCards1.size(); i++) {
-            Card fCard = fieldCards1.get(i);
-            String fName = fCard.getName();
-            int fStrength = fCard.getStrenght();
-            int fHealth = fCard.getHealth();
-            System.out.println((i+1) + ". " + fName + " | Strength:" + fStrength + " Health:" + fHealth);
+            Card card =  fieldCards1.get(i);
+            System.out.println(card.toString());
         }
     }
 
@@ -100,24 +97,9 @@ public class Field {
         return (fieldCards1.size() > 0);
     }
 
-    public int getCardStrengh(int number) {
-        Card card = fieldCards1.get(number);
-        return card.getStrenght();
-    }
-
     public void giveEnemyCards() {
         for (int i = 0; i < fieldCards2.size(); i++)
             System.out.println(fieldCards2.get(i));
-    }
-
-    public int getCardHealth(int number) {
-        Card card = fieldCards1.get(number);
-        return card.getHealth();
-    }
-
-    public String getCardName(int number) {
-        Card card = fieldCards1.get(number);
-        return card.getName();
     }
 
     public boolean checkIfCardFatugued(int number, int side) {
@@ -166,7 +148,7 @@ public class Field {
         }
     }
 
-    private void removeCard(Card card, int number) {
+    public void removeCard(Card card, int number) {
         if (number == 1) {
             int cardId = card.getId();
             for (int j = 0; j < fieldCards2.size(); j++) {
@@ -207,11 +189,9 @@ public class Field {
     }
 
     public void minionAttack(Card attack, Card enemy, int side) {
-        int attackId = attack.getId();
         String attackCardName = attack.getName();
         int attackCardHealth = attack.getHealth();
         int attackCardStrenght = attack.getStrenght();
-        int enemyId = enemy.getId();
         String enemyCardName = enemy.getName();
         int enemyCardHealth = enemy.getHealth();
         int enemyCardStrenght = enemy.getStrenght();

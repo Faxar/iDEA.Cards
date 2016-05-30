@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Cards>
 	<Card>
+		<Minion>1</Minion>
 		<id>1</id>
 		<Name>Necron Warrior</Name>
 		<Strength>2</Strength>
@@ -8,6 +9,7 @@
 		<Mana>2</Mana>
 	</Card>
 	<Card>
+		<Minion>1</Minion>
 		<id>2</id>
 		<Name>Necron Immortal</Name>
 		<Strength>3</Strength>
@@ -15,6 +17,7 @@
 		<Mana>3</Mana>
 	</Card>
 	<Card>
+		<Minion>1</Minion>
 		<id>3</id>
 		<Name>Necron Destroyer</Name>
 		<Strength>4</Strength>
@@ -22,6 +25,7 @@
 		<Mana>4</Mana>
 	</Card>
 	<Card>
+		<Minion>1</Minion>
 		<id>4</id>
 		<Name>Deathmark</Name>
 		<Strength>6</Strength>
@@ -29,10 +33,38 @@
 		<Mana>5</Mana>
 	</Card>
 	<Card>
+		<Minion>1</Minion>
 		<id>5</id>
 		<Name>Triarch Stalker</Name>
 		<Strength>7</Strength>
 		<Health>5</Health>
 		<Mana>6</Mana>
+	</Card>
+	<Card>
+		<Minion>0</Minion>
+		<spellType>2</spellType>
+		<id>6</id>
+		<Name>Gauntlet of Fire</Name>
+		<modificator>2</modificator>
+		<Mana>2</Mana>
+		<Description>Increase minion damage +2</Description>
+	</Card>
+	<Card>
+		<Minion>0</Minion>
+		<spellType>2</spellType>
+		<id>7</id>
+		<Name>Void Blade</Name>
+		<modificator>4</modificator>
+		<Mana>5</Mana>
+		<Description>A Voidblade's increase damage. +4</Description>
+	</Card>
+	<Card>
+		<Minion>0</Minion>
+		<spellType>2</spellType>
+		<id>8</id>
+		<Name>Warscythe</Name>
+		<modificator>5</modificator>
+		<Mana>6</Mana>
+		<Description>Energy-bladed battle-stave. +5 damage</Description>
 	</Card>
 </Cards>

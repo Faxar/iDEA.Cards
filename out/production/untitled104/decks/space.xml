@@ -1,43 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Cards>
 	<Card>
+		<Minion>1</Minion>
 		<id>1</id>
 		<Name>Scout</Name>
 		<Strength>1</Strength>
 		<Health>1</Health>
 		<Mana>1</Mana>
-		<StartQuote>Scout here. Strategic point identified</StartQuote>
+		<Description>Scout here. Strategic point identified</Description>
 	</Card>
 	<Card>
+		<Minion>1</Minion>
 		<id>2</id>
 		<Name>Inquisitor</Name>
 		<Strength>2</Strength>
 		<Health>2</Health>
 		<Mana>2</Mana>
-		<StartQuote>I'm an inquisitor. I do not get angry.</StartQuote>
+		<Description>I'm an inquisitor. I do not get angry.</Description>
 	</Card>
 	<Card>
+		<Minion>1</Minion>
 		<id>3</id>
 		<Name>Space Marine</Name>
 		<Strength>3</Strength>
 		<Health>3</Health>
 		<Mana>3</Mana>
-		<StartQuote>For the Emperor!</StartQuote>
+		<Description>For the Emperor!</Description>
 	</Card>
 	<Card>
+		<Minion>1</Minion>
 		<id>4</id>
 		<Name>Chapter Master</Name>
 		<Strength>4</Strength>
 		<Health>4</Health>
 		<Mana>4</Mana>
-		<StartQuote>For Ultramar! CHARGE!</StartQuote>
+		<Description>For Ultramar! CHARGE!</Description>
 	</Card>
 	<Card>
+		<Minion>1</Minion>
 		<id>5</id>
 		<Name>Drednought</Name>
 		<Strength>5</Strength>
 		<Health>5</Health>
 		<Mana>5</Mana>
-		<StartQuote>Again</StartQuote>
+		<Description>In to the battle again!</Description>
+	</Card>
+	<Card>
+		<Minion>0</Minion>
+		<spellType>1</spellType>
+		<id>6</id>
+		<Name>Psykick blast</Name>
+		<Power>5</Power>
+		<Mana>5</Mana>
+		<Description>Deal 5 damage</Description>
+	</Card>
+	<Card>
+		<Minion>0</Minion>
+		<spellType>2</spellType>
+		<id>7</id>
+		<Name>Emperor call</Name>
+		<modificator>2</modificator>
+		<Mana>2</Mana>
+		<Description>Increase minion damage +2</Description>
+	</Card>
+	<Card>
+		<Minion>0</Minion>
+		<spellType>3</spellType>
+		<id>8</id>
+		<Name>Painkillers</Name>
+		<heal>2</heal>
+		<Mana>2</Mana>
+		<Description>Heal +2</Description>
 	</Card>
 </Cards>
