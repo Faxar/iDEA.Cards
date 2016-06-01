@@ -30,13 +30,13 @@ public class Hand {
     }
 
     public void checkCards() {
-        Card tmpCard;
         for(int i=0;i < myHand.size(); i++){
-            tmpCard = myHand.get(i);
+            Card tmpCard = myHand.get(i);
             if(tmpCard.getIsMinion()== 1){
+
                 System.out.println(
                         (i+1) + ". " + tmpCard.getName() +
-                                " | Strength: " + tmpCard.getStrenght() +
+                                " | Strength: " + tmpCard. +
                                 " , Health: " + tmpCard.getHealth() +
                                 " , Mana: " + tmpCard.getMana());
             } else if (tmpCard.getIsMinion() == 0) {
