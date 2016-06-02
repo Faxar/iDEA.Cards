@@ -1,5 +1,7 @@
 package com.company;
 
+import sun.net.www.content.text.Generic;
+
 import java.util.ArrayList;
 
 /**
@@ -30,41 +32,41 @@ public class Hand {
     }
 
     public void checkCards() {
-        for(int i=0;i < myHand.size(); i++){
-            Card tmpCard = myHand.get(i);
-            if(tmpCard.getIsMinion()== 1){
-
+        for(int i=0;i<myHand.size();i++){
+            Object o = i;
+            if(o.getClass().equals(Minion.class)){
+                Minion temp = (Minion) myHand.get(i);
                 System.out.println(
-                        (i+1) + ". " + tmpCard.getName() +
-                                " | Strength: " + tmpCard. +
-                                " , Health: " + tmpCard.getHealth() +
-                                " , Mana: " + tmpCard.getMana());
-            } else if (tmpCard.getIsMinion() == 0) {
-                if (tmpCard.getSpellType() == 1) {
+                        (i + 1) + ". " + temp.getName() +
+                                " | Strength: " + temp.getStrenth() +
+                                " , Health: " + temp.getHealth() +
+                                " , Mana: " + temp.getMana());
+            } else if (o.getClass().equals(DamageSpell.class)) {
+                DamageSpell temp = (DamageSpell) myHand.get(i);
                     System.out.println(
-                            (i + 1) + ". " + tmpCard.getName() +
-                                    " | Power: " + tmpCard.getPower() +
-                                    " , Mana: " + tmpCard.getMana() +
-                                    " | Description : " + tmpCard.getDesctiption()
+                            (i + 1) + ". " + temp.getName() +
+                                    " | Power: " + temp.getPower() +
+                                    " , Mana: " + temp.getMana() +
+                                    " | Description : " + temp.getDesctiption());
+            } else if (o.getClass().equals(BuffSpell.class)) {
+                BuffSpell temp = (BuffSpell) myHand.get(i);
+                    System.out.println(
+                            (i + 1) + ". " + temp.getName() +
+                                    " | Buff: " + temp.getModificator() +
+                                    " , Mana: " + temp.getMana() +
+                                    " | Description : " + temp.getDesctiption()
                     );
-                } else if (tmpCard.getSpellType() == 2) {
+                } else if (o.getClass().equals(HealSpell.class)){
+                HealSpell temp = (HealSpell) myHand.get(i);
                     System.out.println(
-                            (i + 1) + ". " + tmpCard.getName() +
-                                    " | Buff: " + tmpCard.getModificator() +
-                                    " , Mana: " + tmpCard.getMana() +
-                                    " | Description : " + tmpCard.getDesctiption()
-                    );
-                } else if (tmpCard.getSpellType() == 3){
-                    System.out.println(
-                            (i + 1) + ". " + tmpCard.getName() +
-                                    " | Heal: " + tmpCard.getHeal() +
-                                    " , Mana: " + tmpCard.getMana() +
-                                    " | Description : " + tmpCard.getDesctiption()
+                            (i + 1) + ". " + temp.getName() +
+                                    " | Heal: " + temp.getHeal() +
+                                    " , Mana: " + temp.getMana() +
+                                    " | Description : " + temp.getDesctiption()
                     );
                 }
             }
         }
-    }
 
 
     public Card removeCardHand(int number) {
