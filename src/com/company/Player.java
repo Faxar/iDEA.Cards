@@ -72,103 +72,102 @@ public class Player {
                     if (cNumber < 0) {
                         System.out.println("Please enter positive number");
                     } else {
-                        if (player1.checkIfCardExist(cNumber)) {
+                        if(player1.checkIfCardExist(cNumber)){
                             Card card = player1.returnCard(cNumber);
-                            if (card.getIsMinion() == 1) {
-                                if (card.getMana() <= player1.getTempMana()) {
-                                    newField.putCardOnF(card, 1);
+                            if(card.getMana() <= player1.getTempMana()){
+                                Object o = player1.returnCard(cNumber);
+                                if (o.getClass().equals(Minion.class)) {
+                                    Minion minion = (Minion) player1.returnCard(cNumber);
+                                    newField.putCardOnF(minion, 1);
                                     System.out.println("Now on the field there is:");
                                     newField.returnFieldCards();
-                                    player1.modifyTempMana(card.getMana());
+                                    player1.modifyTempMana(minion.getMana());
                                     player1.removeCardHand(cNumber);
-                                } else {
-                                    System.out.println("You don't have enough mana. Your current mana pool is " + player1.getTempMana());
-                                }
-                            } else if (card.getIsMinion() == 0) {
-                                if (card.getMana() <= player1.getTempMana()) {
-                                    if (card.getSpellType() == 1) {
-                                        if (newField.checkAICards()) {
-                                            System.out.println("1 - Attack AI\n" +
-                                                    "2 - Attack card on the field\n" +
-                                                    "3 - Cancel");
-                                            int number = scanner();
-                                            switch (number) {
-                                                case 0:
-                                                    System.out.println("AI had " + ai.checkHealth());
-                                                    System.out.println("You have dealt " + card.getPower() + " to AI face.");
-                                                    player1.removeCardHand(cNumber);
-                                                    ai.removePlayerHealth(card.getPower());
-                                                    System.out.println("AI new health " + ai.checkHealth());
-                                                    player1.modifyTempMana(card.getMana());
-                                                    break;
-                                                case 1:
-                                                    System.out.println("Select target");
-                                                    newField.giveEnemyCards();
-                                                    Card tCard = newField.returnCardElement(scanner(), 2);
-                                                    if (card.getPower() >= tCard.getHealth()) {
-                                                        System.out.println("Zzzzaap! You have destroyed " + tCard.getName() + " by dealing " + card.getPower() + " damage with " + card.getName());
-                                                        newField.removeCard(tCard, 1);
-                                                        player1.removeCardHand(cNumber);
-                                                        player1.modifyTempMana(card.getMana());
-                                                    } else if (card.getPower() < tCard.getHealth()) {
-                                                        System.out.println("Zzap! You have dealt " + card.getPower() + " damage. But failed to destroy " + tCard.getName());
-                                                        player1.removeCardHand(cNumber);
-                                                        player1.modifyTempMana(card.getMana());
-                                                    }
-                                                case 2:
-                                                    break;
-                                            }
-                                        } else if (!newField.checkAICards())
-                                            System.out.println("1 - Attack AI\n" +
-                                                    "2 - Cancel");
+                                } else if (o.getClass().equals(DamageSpell.class)){
+                                    DamageSpell dmg = (DamageSpell) player1.returnCard(cNumber);
+                                    if (newField.checkAICards()) {
+                                        System.out.println("1 - Attack AI\n" +
+                                                "2 - Attack card on the field\n" +
+                                                "3 - Cancel");
                                         int number = scanner();
                                         switch (number) {
                                             case 0:
                                                 System.out.println("AI had " + ai.checkHealth());
-                                                System.out.println("You have dealt " + card.getPower() + " to AI face.");
+                                                System.out.println("You have dealt " + dmg.getPower() + " to AI face.");
                                                 player1.removeCardHand(cNumber);
-                                                ai.removePlayerHealth(card.getPower());
+                                                ai.removePlayerHealth(dmg.getPower());
                                                 System.out.println("AI new health " + ai.checkHealth());
-                                                player1.modifyTempMana(card.getMana());
+                                                player1.modifyTempMana(dmg.getMana());
+                                                break;
+                                            case 1:
+                                                System.out.println("Select target");
+                                                newField.giveEnemyCards();
+                                                Minion tCard = (Minion) newField.returnCardElement(scanner(), 2);
+                                                if (dmg.getPower() >= tCard.getHealth()) {
+                                                    System.out.println("Zzzzaap! You have destroyed " + tCard.getName() + " by dealing " + dmg.getPower() + " damage with " + dmg.getName());
+                                                    newField.removeCard(tCard, 1);
+                                                    player1.removeCardHand(cNumber);
+                                                    player1.modifyTempMana(dmg.getMana());
+                                                } else if (dmg.getPower() < tCard.getHealth()) {
+                                                    System.out.println("Zzap! You have dealt " + dmg.getPower() + " damage. But failed to destroy " + tCard.getName());
+                                                    player1.removeCardHand(cNumber);
+                                                    player1.modifyTempMana(dmg.getMana());
+                                                }
+                                            case 2:
+                                                break;
+                                        }
+                                    } else if (!newField.checkAICards()){
+                                        System.out.println("1 - Attack AI\n" +
+                                                "2 - Cancel");
+                                        int number = scanner();
+                                        switch (number) {
+                                            case 0:
+                                                System.out.println("AI had " + ai.checkHealth());
+                                                System.out.println("You have dealt " + dmg.getPower() + " to AI face.");
+                                                player1.removeCardHand(cNumber);
+                                                ai.removePlayerHealth(dmg.getPower());
+                                                System.out.println("AI new health " + ai.checkHealth());
+                                                player1.modifyTempMana(dmg.getMana());
                                                 break;
                                             case 1:
                                                 break;
                                         }
-                                    } else if (card.getSpellType() == 2) {
-                                        if (newField.checkIfPlayerCardsField()) {
-                                            System.out.println("Select buff target");
-                                            newField.returnFieldCards();
-                                            int bTarget = scanner();
-                                            if (newField.checkIfCardExistOnField(bTarget)) {
-                                                Card card2 = newField.returnCardElement(bTarget, 1);
-                                                System.out.println("You have buffed " + card2.getName());
-                                                System.out.println("Strength was increased from " + card2.getStrenght());
-                                                card2.setStrenght(card2.getStrenght() + card.getModificator());
-                                                System.out.println(" to " + card2.getStrenght());
-                                                player1.removeCardHand(cNumber);
-                                                player1.modifyTempMana(card2.getMana());
-                                            }
-                                        } else if (!newField.checkIfPlayerCardsField()){
-                                            System.out.println("You don't have minions to buff");
+                                    }
+                                } else if (o.getClass().equals(BuffSpell.class)){
+                                    BuffSpell buff = (BuffSpell) player1.returnCard(cNumber);
+                                    if (newField.checkIfPlayerCardsField()) {
+                                        System.out.println("Select buff target");
+                                        newField.returnFieldCards();
+                                        int bTarget = scanner();
+                                        if (newField.checkIfCardExistOnField(bTarget)) {
+                                            Minion card2 = (Minion) newField.returnCardElement(bTarget, 1);
+                                            System.out.println("You have buffed " + card2.getName());
+                                            System.out.println("Strength was increased from " + card2.getStrenth());
+                                            card2.setStrenth(card2.getStrenth() + buff.getModificator());
+                                            System.out.println(" to " + card2.getStrenth());
+                                            player1.removeCardHand(cNumber);
+                                            player1.modifyTempMana(card2.getMana());
                                         }
-                                    } else if (card.getSpellType() == 3) {
-                                        if (player1.checkHealth() == 30) {
-                                            System.out.println("You can't heal. You have maximum health");
-                                        } else if (player1.checkHealth() < 30) {
-                                            if ((player1.checkHealth() + card.getHeal()) >= 30) {
-                                                System.out.println("You have been healed for " + (player1.checkHealth() - 30));
-                                            } else if ((player1.checkHealth() + card.getHeal()) < 30) {
-                                                System.out.println("You have been healed for " + card.getHeal());
-                                            }
+                                    } else if (!newField.checkIfPlayerCardsField()){
+                                        System.out.println("You don't have minions to buff");
+                                    }
+                                } else if (o.getClass().equals(HealSpell.class)){
+                                    HealSpell heal = (HealSpell) player1.returnCard(cNumber);
+                                    if (player1.checkHealth() == 30) {
+                                        System.out.println("You can't heal. You have maximum health");
+                                    } else if (player1.checkHealth() < 30) {
+                                        if ((player1.checkHealth() + heal.getHeal()) >= 30) {
+                                            System.out.println("You have been healed for " + (player1.checkHealth() - 30));
+                                        } else if ((player1.checkHealth() + heal.getHeal()) < 30) {
+                                            System.out.println("You have been healed for " + heal.getHeal());
                                         }
                                     }
-                                } else {
-                                    System.out.println("You don't have enough mana. Your current mana pool is " + player1.getTempMana());
                                 }
+                            } else if (card.getMana() > player1.getTempMana()) {
+                                System.out.println("You don't have enough mana." );
                             }
                         }
-                    }
-                    break;
+                    } break;
 
                 case 1:
                     System.out.println("Ai have following cards on the field");
@@ -176,7 +175,7 @@ public class Player {
                     System.out.println("Select card to attack with");
                     newField.returnFieldCards();
                     int cardNumber = scanner();
-                    Card card = newField.returnCardElement(cardNumber, 1);
+                    Minion card = (Minion) newField.returnCardElement(cardNumber, 1);
                     if (newField.checkIfCardExistOnField(cardNumber)) {
                         if (!newField.checkIfCardFatugued(cardNumber, 1)) {
                             if (newField.checkAICards()) {
@@ -187,8 +186,8 @@ public class Player {
                                 int number = scanner();
                                 switch (number) {
                                     case 0:
-                                        ai.removePlayerHealth(card.getStrenght());
-                                        System.out.println("AI received " + card.getStrenght() + " points of damage");
+                                        ai.removePlayerHealth(card.getStrenth());
+                                        System.out.println("AI received " + card.getStrenth() + " points of damage");
                                         System.out.println("New AI health = " + ai.checkHealth());
                                         newField.putToFatugue(cardNumber, 1);
                                         if (ai.checkHealth() <= 0) {
@@ -215,8 +214,8 @@ public class Player {
                                 int number = scanner();
                                 switch (number) {
                                     case 0:
-                                        ai.removePlayerHealth(card.getStrenght());
-                                        System.out.println("AI received " + card.getStrenght() + " points of damage");
+                                        ai.removePlayerHealth(card.getStrenth());
+                                        System.out.println("AI received " + card.getStrenth() + " points of damage");
                                         System.out.println("New AI health = " + ai.checkHealth());
                                         newField.putToFatugue(cardNumber, 1);
                                         if (ai.checkHealth() <= 0) {
@@ -242,7 +241,7 @@ public class Player {
                 case 2:
                     if (player1.checkAmountOfCards() >= 3 && newDeck.amountCardsInDeck() > 0) {
                         Card burned = newDeck.fetch();
-                        System.out.println("You have full hand.\n" + burned + '\n' + " have burned down");
+                        System.out.println("You have full hand.\n" + burned.getName() + '\n' + " card, have burned down.");
                         System.out.println("You have " + newDeck.amountCardsInDeck() + " cards, left in your deck");
                     } else if (player1.checkAmountOfCards() < 3 && newDeck.amountCardsInDeck() > 0) {
                         Card pullFromDeck = newDeck.fetch();

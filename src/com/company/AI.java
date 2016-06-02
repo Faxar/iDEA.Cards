@@ -23,59 +23,63 @@ public class AI {
         Collections.sort(ai.getArray(), new CustomComparator());
         //System.out.println("Ai have in the hand:");
         //ai.checkCards();
-        if(allField.checkIfPlayerCardsField()){ // attack spells
-            for (int i=0; i<ai.getArray().size();i++) {
-                Card card = ai.returnCard(i);
-                if(card.getIsMinion() == 0 && card.getSpellType() == 1 && card.getMana() <= ai.getTempMana()){
-                    for (int x=0;x<allField.returnPlayerFCards().size();x++) {
-                        Card card4 = allField.returnCardElement(x, 1);
-                        if(card.getPower() >= card4.getHealth()){
-                            ai.removeCardHand(i);
-                            allField.removeCard(card4, 2);
-                            System.out.println("Zzzzap!!! AI have destroyed " + card4.getName() + " with " + card.getName() + " by dealing to it " + card.getPower() + " points of damage" );
-                            ai.modifyTempMana(card.getMana());
-                        }
-                    }
-                } else if (card.getIsMinion() == 0 && card.getSpellType() == 2 && card.getMana() <= ai.getTempMana() && allField.checkAICards()){ // buff spells
-                    for(int j=0;j<allField.returnAiFCards().size(); j++){
-                        Card card2 = allField.returnCardElement(j, 2); // AI field card
-                        for(int n=0;n<allField.returnPlayerFCards().size();n++){
-                            Card card3 = allField.returnCardElement(n, 1); // Player field card
-                            if(!allField.checkIfCardFatugued(j, 2) && (card2.getStrenght() + card.getModificator()) >= card3.getHealth() && card2.getHealth() > card3.getStrenght()){
-                                System.out.println("AI enhanced " + card2.getName() + ". Strength was increased on " + card.getModificator());
-                                card2.setStrenght(card2.getStrenght() + card.getModificator());
-                                System.out.println("New card have " + card2.getStrenght() + " - strength and " + card2.getHealth() + " - health.");
-                                allField.minionAttack(card2, card3, 2);
-                                allField.putToFatugue(j, 2);
-                                ai.modifyTempMana(card.getMana());
+        for (int i = 0; i < ai.getArray().size(); i++) {
+            Object o = ai.returnCard(i);
+            if (o.getClass().equals(DamageSpell.class) && allField.checkIfPlayerCardsField()) {
+                    DamageSpell dmg = (DamageSpell) ai.returnCard(i);
+                    if (dmg.getMana() <= ai.getTempMana()) {
+                        for (int x = 0; x < allField.returnPlayerFCards().size(); x++) {
+                            Minion card4 = (Minion) allField.returnCardElement(x, 1);
+                            if (dmg.getPower() >= card4.getHealth()) {
                                 ai.removeCardHand(i);
+                                allField.removeCard(card4, 2);
+                                System.out.println("Zzzzap!!! AI have destroyed " + card4.getName() + " with " + dmg.getName() + " by dealing to it " + dmg.getPower() + " points of damage");
+                                ai.modifyTempMana(dmg.getMana());
                             }
                         }
                     }
-                } else if (card.getIsMinion() == 0 && card.getSpellType() == 3 && card.getMana() <= ai.getTempMana()){ // ai heal spells
-                    if(ai.checkHealth() <= 10){
-                        System.out.println("AI cast heal spell on himself. Healing for " + card.getHeal());
+            } else if (o.getClass().equals(HealSpell.class)) { // ai heal spells
+                HealSpell heal = (HealSpell) ai.returnCard(i);
+                if (heal.getMana() <= ai.getTempMana()) {
+                    if (ai.checkHealth() <= 10) {
+                        System.out.println("AI cast heal spell on himself. Healing for " + heal.getHeal());
                         System.out.println("AI health was " + ai.checkHealth());
-                        ai.addPlayerHealth(card.getHeal());
+                        ai.addPlayerHealth(heal.getHeal());
                         System.out.println("AI health now " + ai.checkHealth());
                         ai.removeCardHand(i);
-                        ai.modifyTempMana(card.getMana());
+                        ai.modifyTempMana(heal.getMana());
+                    }
+                }
+            } else if (o.getClass().equals(BuffSpell.class)) {
+                BuffSpell buff = (BuffSpell) ai.returnCard(i);
+                if (buff.getMana() <= ai.getTempMana() && allField.checkAICards()) {
+                    for (int j = 0; j < allField.returnAiFCards().size(); j++) {
+                        Minion card2 = (Minion) allField.returnCardElement(j, 2); // AI field card
+                        for (int n = 0; n < allField.returnPlayerFCards().size(); n++) {
+                            Minion card3 = (Minion) allField.returnCardElement(n, 1); // Player field card
+                            if (!allField.checkIfCardFatugued(j, 2) && (card2.getStrenth() + buff.getModificator()) >= card3.getHealth() && card2.getHealth() > card3.getStrenth()) {
+                                System.out.println("AI enhanced " + card2.getName() + ". Strength was increased on " + buff.getModificator());
+                                card2.setStrenth(card2.getStrenth() + buff.getModificator());
+                                System.out.println("New card have " + card2.getStrenth() + " - strength and " + card2.getHealth() + " - health.");
+                                allField.minionAttack(card2, card3, 2);
+                                allField.putToFatugue(j, 2);
+                                ai.modifyTempMana(buff.getMana());
+                                ai.removeCardHand(i);
+                            }
+                        }
                     }
                 }
             }
         }
         for (int i = 0; i < ai.getArray().size(); i++) {
-            Card tempCard = ai.returnCard(i);
-            if(tempCard.getIsMinion() == 1){
-                int tempCardMana = tempCard.getMana();
-                String tempName = tempCard.getName();
-                int tempStrength = tempCard.getStrenght();
-                int tempHealth = tempCard.getHealth();
-                if (tempCardMana <= ai.getTempMana()) {
+            Object o = ai.returnCard(i);
+            if (o.getClass().equals(Minion.class)) {
+                Minion min = (Minion) ai.returnCard(i);
+                if (min.getMana() <= ai.getTempMana()) {
                     ai.removeCardHand(i);
-                    ai.modifyTempMana(tempCardMana);
-                    allField.putCardOnF(tempCard, 2);
-                    System.out.println("AI played on the field - " + tempName + " | Strength:" + tempStrength + " Health:" + tempHealth);
+                    ai.modifyTempMana(min.getMana());
+                    allField.putCardOnF(min, 2);
+                    System.out.println("AI played on the field - " + min.getName() + " | Strength:" + min.getStrenth() + " Health:" + min.getHealth());
                 }
             }
         }
@@ -94,7 +98,7 @@ public class AI {
     private void aiAttackMinion(Hand player1, Field allField) {
         for (int j = 0; j < allField.returnAiFCards().size(); j++) {
             if (!allField.checkIfCardFatugued(j, 2)) {
-                Card aiMinion = allField.returnCardElement(j, 2);
+                Minion aiMinion = (Minion) allField.returnCardElement(j, 2);
                 for (int i = 0; i < allField.returnPlayerFCards().size(); i++) {
                     Card playerMinion = allField.returnCardElement(i, 1);
                     int cardOutput = allField.verifyAttackWithMinion(aiMinion, playerMinion);
@@ -105,10 +109,8 @@ public class AI {
                     }
                 }
                 if (!allField.checkIfCardFatugued(j, 2)) {
-                    int damage = aiMinion.getStrenght();
-                    String mName = aiMinion.getName();
-                    player1.removePlayerHealth(damage);
-                    System.out.println("AI minion " + mName + " inflicted " + damage + " damage to player");
+                    player1.removePlayerHealth(aiMinion.getStrenth());
+                    System.out.println("AI minion " + aiMinion.getName() + " inflicted " + aiMinion.getStrenth() + " damage to player");
                     System.out.println("Player health down to " + player1.checkHealth());
                     allField.putToFatugue(j, 2);
                 }
@@ -120,10 +122,9 @@ public class AI {
     private void aiAttackFace(Hand player1, Field allField) {
         for (int i = 0; i < allField.returnAiFCards().size(); i++) {
             if (!allField.checkIfCardFatugued(i, 2)) {
-                Card aiCard = allField.returnCardElement(i, 2);
-                int damage = aiCard.getStrenght();
-                player1.removePlayerHealth(damage);
-                System.out.println("AI inflicted " + damage + " to player");
+                Minion aiCard = (Minion) allField.returnCardElement(i, 2);
+                player1.removePlayerHealth(aiCard.getStrenth());
+                System.out.println("AI inflicted " + aiCard.getStrenth() + " to player");
                 System.out.println("Player health down to " + player1.checkHealth());
                 allField.putToFatugue(i, 2);
             }

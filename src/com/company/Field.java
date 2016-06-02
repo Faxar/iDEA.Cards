@@ -72,7 +72,7 @@ public class Field {
 
     public void returnFieldCards() {
         for (int i = 0; i < fieldCards1.size(); i++) {
-            Card card =  fieldCards1.get(i);
+            Minion card = (Minion) fieldCards1.get(i);
             System.out.println(card.toString());
         }
     }
@@ -169,14 +169,16 @@ public class Field {
     }
 
     public int verifyAttackWithMinion(Card attackCard, Card enemyCard) {
+        Minion atCard = (Minion) attackCard;
+        Minion enCard = (Minion) enemyCard;
         int willKillNotSurv = 1;
         int willKillSurv = 2;
         int willNKillNSurv = 3;
         int willNKillSurv = 4;
-        int attackCardHealth = attackCard.getHealth();
-        int attackCardStrenght = attackCard.getStrenght();
-        int enemyCardHealth = enemyCard.getHealth();
-        int enemyCardStrenght = enemyCard.getStrenght();
+        int attackCardHealth = atCard.getHealth();
+        int attackCardStrenght = atCard.getStrenth();
+        int enemyCardHealth = enCard.getHealth();
+        int enemyCardStrenght = enCard.getHealth();
         if (attackCardStrenght >= enemyCardHealth && enemyCardStrenght < attackCardHealth) {
             return willKillSurv; //2
         } else if (attackCardStrenght >= enemyCardHealth && enemyCardStrenght >= attackCardHealth) {
@@ -189,12 +191,14 @@ public class Field {
     }
 
     public void minionAttack(Card attack, Card enemy, int side) {
-        String attackCardName = attack.getName();
-        int attackCardHealth = attack.getHealth();
-        int attackCardStrenght = attack.getStrenght();
-        String enemyCardName = enemy.getName();
-        int enemyCardHealth = enemy.getHealth();
-        int enemyCardStrenght = enemy.getStrenght();
+        Minion at = (Minion) attack;
+        Minion en = (Minion) enemy;
+        String attackCardName = at.getName();
+        int attackCardHealth = at.getHealth();
+        int attackCardStrenght = at.getStrenth();
+        String enemyCardName = en.getName();
+        int enemyCardHealth = en.getHealth();
+        int enemyCardStrenght = en.getStrenth();
         if (attackCardStrenght >= enemyCardHealth && enemyCardStrenght < attackCardHealth) {
             System.out.println(attackCardName + " have destroyed " + enemyCardName);
             removeCard(enemy, side);
