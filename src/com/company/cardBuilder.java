@@ -131,8 +131,8 @@ public class cardBuilder {
                     healSpell.setSpellType(Integer.parseInt(getTagValue("spellType", element)));
                     healSpell.setId(Integer.parseInt(getTagValue("id", element)));
                     healSpell.setName(getTagValue("Name", element));
-                    healSpell.setHeal(Integer.getInteger(getTagValue("heal", element)));
-                    healSpell.setMana(Integer.getInteger(getTagValue("Mana", element)));
+                    healSpell.setHeal(Integer.parseInt(getTagValue("heal", element)));
+                    healSpell.setMana(Integer.parseInt(getTagValue("Mana", element)));
                     healSpell.setDesctiption(getTagValue("Description", element));
                     return healSpell;
                 }

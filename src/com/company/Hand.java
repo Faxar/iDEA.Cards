@@ -33,31 +33,31 @@ public class Hand {
 
     public void checkCards() {
         for(int i=0;i<myHand.size();i++){
-            Object o = i;
+            Object o = myHand.get(i);
             if(o.getClass().equals(Minion.class)){
-                Minion temp = (Minion) myHand.get(i);
+                Minion temp = (Minion) o;
                 System.out.println(
                         (i + 1) + ". " + temp.getName() +
                                 " | Strength: " + temp.getStrenth() +
                                 " , Health: " + temp.getHealth() +
                                 " , Mana: " + temp.getMana());
             } else if (o.getClass().equals(DamageSpell.class)) {
-                DamageSpell temp = (DamageSpell) myHand.get(i);
+                DamageSpell temp = (DamageSpell) o;
                     System.out.println(
                             (i + 1) + ". " + temp.getName() +
                                     " | Power: " + temp.getPower() +
                                     " , Mana: " + temp.getMana() +
                                     " | Description : " + temp.getDesctiption());
             } else if (o.getClass().equals(BuffSpell.class)) {
-                BuffSpell temp = (BuffSpell) myHand.get(i);
+                BuffSpell temp = (BuffSpell) o;
                     System.out.println(
                             (i + 1) + ". " + temp.getName() +
                                     " | Buff: " + temp.getModificator() +
                                     " , Mana: " + temp.getMana() +
                                     " | Description : " + temp.getDesctiption()
                     );
-                } else if (o.getClass().equals(HealSpell.class)){
-                HealSpell temp = (HealSpell) myHand.get(i);
+                } else if (o.getClass().equals(HealSpell.class)) {
+                HealSpell temp = (HealSpell) o;
                     System.out.println(
                             (i + 1) + ". " + temp.getName() +
                                     " | Heal: " + temp.getHeal() +
