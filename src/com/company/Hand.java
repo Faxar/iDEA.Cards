@@ -1,7 +1,5 @@
 package com.company;
 
-import sun.net.www.content.text.Generic;
-
 import java.util.ArrayList;
 
 /**
@@ -34,6 +32,7 @@ public class Hand {
     public void checkCards() {
         for(int i=0;i<myHand.size();i++){
             Object o = myHand.get(i);
+            if(o instanceof Spell)
             if(o.getClass().equals(Minion.class)){
                 Minion temp = (Minion) o;
                 System.out.println(
@@ -71,10 +70,6 @@ public class Hand {
 
     public Card removeCardHand(int number) {
         return myHand.remove(number);
-    }
-
-    public int getMana() {
-        return mana;
     }
 
     public int getTempMana() {

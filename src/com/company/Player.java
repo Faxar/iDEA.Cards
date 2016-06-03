@@ -13,21 +13,21 @@ public class Player {
 
     private static void printMenu(boolean isHandEmpty, boolean isFieldEmpty) {
         if (isFieldEmpty && isHandEmpty) {
-            System.out.println("Please press action\n" +
+            System.out.println("Please select action\n" +
                     "Press 3 - End Turn\n" +
                     "Press 4 - Surrender\n");
         } else if (!isFieldEmpty && isHandEmpty) {
-            System.out.println("Please press action\n" +
+            System.out.println("Please select action\n" +
                     "Press 2 - Play Card on the field\n" +
                     "Press 3 - End Turn\n" +
                     "Press 4 - Surrender\n");
         } else if (isFieldEmpty && !isHandEmpty) {
-            System.out.println("Please press action\n" +
+            System.out.println("Please select action\n" +
                     "Press 1 - Play Card from the hand\n" +
                     "Press 3 - End Turn\n" +
                     "Press 4 - Surrender\n");
         } else {
-            System.out.println("Please press action\n" +
+            System.out.println("Please select action\n" +
                     "Press 1 - Play Card from the hand\n" +
                     "Press 2 - Play Card on the field\n" +
                     "Press 3 - End Turn\n" +
@@ -164,7 +164,8 @@ public class Player {
                                     }
                                 }
                             } else if (card.getMana() > player1.getTempMana()) {
-                                System.out.println("You don't have enough mana." );
+                                int missingM = card.getMana() - player1.getTempMana();
+                                System.out.println("You are missing " + missingM + " mana, to play " + card.getName() );
                             }
                         }
                     } break;
@@ -172,6 +173,7 @@ public class Player {
                 case 1:
                     System.out.println("Ai have following cards on the field");
                     newField.giveEnemyCards();
+                    System.out.println("---------------------------");
                     System.out.println("Select card to attack with");
                     newField.returnFieldCards();
                     int cardNumber = scanner();
