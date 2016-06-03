@@ -25,7 +25,7 @@ public class AI {
         //ai.checkCards();
         for (int i = 0; i < ai.getArray().size(); i++) {
             Object o = ai.returnCard(i);
-            if (o.getClass().equals(DamageSpell.class) && allField.checkIfPlayerCardsField()) {
+            if (o instanceof DamageSpell && allField.checkIfPlayerCardsField()) {
                     DamageSpell dmg = (DamageSpell) ai.returnCard(i);
                     if (dmg.getMana() <= ai.getTempMana()) {
                         for (int x = 0; x < allField.returnPlayerFCards().size(); x++) {
@@ -38,7 +38,7 @@ public class AI {
                             }
                         }
                     }
-            } else if (o.getClass().equals(HealSpell.class)) { // ai heal spells
+            } else if (o instanceof HealSpell) { // ai heal spells
                 HealSpell heal = (HealSpell) ai.returnCard(i);
                 if (heal.getMana() <= ai.getTempMana()) {
                     if (ai.checkHealth() <= 10) {
@@ -50,7 +50,7 @@ public class AI {
                         ai.modifyTempMana(heal.getMana());
                     }
                 }
-            } else if (o.getClass().equals(BuffSpell.class)) {
+            } else if (o instanceof BuffSpell) {
                 BuffSpell buff = (BuffSpell) ai.returnCard(i);
                 if (buff.getMana() <= ai.getTempMana() && allField.checkAICards()) {
                     for (int j = 0; j < allField.returnAiFCards().size(); j++) {
@@ -73,7 +73,7 @@ public class AI {
         }
         for (int i = 0; i < ai.getArray().size(); i++) {
             Object o = ai.returnCard(i);
-            if (o.getClass().equals(Minion.class)) {
+            if (o instanceof Minion) {
                 Minion min = (Minion) ai.returnCard(i);
                 if (min.getMana() <= ai.getTempMana()) {
                     ai.removeCardHand(i);

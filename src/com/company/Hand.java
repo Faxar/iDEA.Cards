@@ -32,7 +32,6 @@ public class Hand {
     public void checkCards() {
         for(int i=0;i<myHand.size();i++){
             Object o = myHand.get(i);
-            if(o instanceof Spell)
             if(o.getClass().equals(Minion.class)){
                 Minion temp = (Minion) o;
                 System.out.println(
