@@ -20,8 +20,7 @@ import java.util.List;
 public class cardBuilder {
 
     public static void builder(Deck deck, int number) {
-            String filepath = feedPath(number);
-            File xmlFile = new File(filepath);
+            File xmlFile = new File(feedPath(number));
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder;
             try {
@@ -150,14 +149,15 @@ public class cardBuilder {
     }
 
     private static String feedPath(int number){
+        String path = cardBuilder.class.getClassLoader().getResource("")
         if(number == 1){
-            return "\\Users\\vassili.holenev\\IdeaProjects\\Test\\src\\decks\\space.xml";
+            return ("src/decks/space.xml");
         } else if (number == 2) {
-            return "\\Users\\vassili.holenev\\IdeaProjects\\Test\\src\\decks\\orks.xml";
+            return ("src/decks/orks.xml");
         } else if (number == 3){
-            return "\\Users\\vassili.holenev\\IdeaProjects\\Test\\src\\decks\\chaos.xml";
+            return ("src/decks/chaos.xml");
         } else if (number == 4){
-            return "\\Users\\vassili.holenev\\IdeaProjects\\Test\\src\\decks\\necrons.xml";
+            return ("src/decks/necrons.xml");
         } return null;
     }
 

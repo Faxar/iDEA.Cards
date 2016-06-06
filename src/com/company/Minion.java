@@ -21,6 +21,13 @@ public class Minion extends Card {
 
     public void setHealth(int health) {
         this.health = health;
+        if(health < 0){
+            minionDeath();
+        }
+    }
+
+    private void minionDeath(){
+        
     }
 
     @Override
