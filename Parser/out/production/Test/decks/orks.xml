@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Cards>
+	<Card>
+		<Minion>1</Minion>
+		<id>1</id>
+		<Name>Gretchin</Name>
+		<Strength>1</Strength>
+		<Health>1</Health>
+		<Mana>1</Mana>
+	</Card>
+	<Card>
+		<Minion>1</Minion>
+		<id>2</id>
+		<Name>Ork</Name>
+		<Strength>1</Strength>
+		<Health>3</Health>
+		<Mana>2</Mana>
+	</Card>
+	<Card>
+		<Minion>1</Minion>
+		<id>3</id>
+		<Name>Nobz</Name>
+		<Strength>3</Strength>
+		<Health>4</Health>
+		<Mana>3</Mana>
+	</Card>
+	<Card>
+		<Minion>1</Minion>
+		<id>4</id>
+		<Name>Wartrakk</Name>
+		<Strength>4</Strength>
+		<Health>4</Health>
+		<Mana>4</Mana>
+	</Card>
+	<Card>
+		<Minion>1</Minion>
+		<id>5</id>
+		<Name>Killa Kan</Name>
+		<Strength>5</Strength>
+		<Health>5</Health>
+		<Mana>5</Mana>
+	</Card>
+	<Card>
+		<Minion>0</Minion>
+		<spellType>1</spellType>
+		<id>6</id>
+		<Name>Big Bomm</Name>
+		<Power>2</Power>
+		<Mana>2</Mana>
+		<Description>Deal 2 damage</Description>
+	</Card>
+	<Card>
+		<Minion>0</Minion>
+		<spellType>2</spellType>
+		<id>7</id>
+		<Name>Big Dakka</Name>
+		<modificator>2</modificator>
+		<Mana>2</Mana>
+		<Description>Increase minion damage +2</Description>
+	</Card>
+	<Card>
+		<Minion>0</Minion>
+		<spellType>2</spellType>
+		<id>8</id>
+		<Name>WAAAGH!</Name>
+		<modificator>4</modificator>
+		<Mana>4</Mana>
+		<Description>Increase minion damage +4</Description>
+	</Card>
+</Cards>
